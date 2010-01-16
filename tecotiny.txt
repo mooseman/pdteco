@@ -1,0 +1,190 @@
+% -*-LaTeX-*-
+% <BEEBE.EPSILON>TECOTINY.LTX.20,  3-Jun-86 10:20:56, Edit by BEEBE
+% this is part of TECO.LTX
+
+  I promised in an early chapter that it is possible to learn a small
+part of \TECO{} and still do useful work.  Here is a stepwise guide to
+an ever-expanding subset of the language.  You should consult the
+language reference section beginning on page~\pageref{lang-ref} for the
+details and examples; the summary here is intended to be brief, so as
+not to overwhelm you.
+
+A preliminary word of advice---you are going to make mistakes, and some
+of them will be whoppers that totally trash your edit buffer.  Just two
+little characters, {\tiny \T{HK}}, will empty the buffer
+irrevocably.  {\em Therefore}, before you execute a \TECO{} program,
+{\em save} the edit buffer!  If you have a disaster, a quick
+\EC{revert-file} will put things right back to their state at the time
+of the save.
+
+To begin with, you need to know eight basic functions:
+ \begin{flushleft}
+   \begin{tabular}{|l|}
+     \hline
+     \mbox{}\\
+     \begin{minipage}[t]{\linewidth}
+       \begin{commandtable}
+	\item[\DOT]
+		Current value of \POINT{}.
+	\item[nC]
+		Move \POINT{} \T{n} characters forward.
+	\item[nD]
+		Delete \T{n} characters.
+	\item[Istring\A{ESC}]
+		Insert text.
+	\item[nJ]
+		Move \POINT{} to absolute position \T{n}.
+	\item[m,nK]
+		Kill range of characters.
+	\item[Sstring\A{ESC}]
+		Search for a string.
+	\item[Z]
+		Current buffer size.
+       \end{commandtable}
+     \end{minipage}\\
+     \mbox{}\\
+     \hline
+   \end{tabular}
+ \end{flushleft}
+
+
+Next, you can augment this set with line-oriented commands:
+ \begin{flushleft}
+   \begin{tabular}{|l|}
+     \hline
+     \mbox{}\\
+     \begin{minipage}[t]{\linewidth}
+       \begin{commandtable}
+	\item[nL]
+		Move to beginning of $\T{n}^{th}$ line from \POINT{}.
+	\item[nK]
+		Kill from point  to beginning of $\T{n}^{th}$ following
+		line.
+       \end{commandtable}
+     \end{minipage}\\
+     \mbox{}\\
+     \hline
+   \end{tabular}
+ \end{flushleft}
+
+Then you can add looping:
+ \begin{flushleft}
+   \begin{tabular}{|l|}
+     \hline
+     \mbox{}\\
+     \begin{minipage}[t]{\linewidth}
+       \begin{commandtable}
+	\item[n;]
+		Exit loop if $\T{n} \geq 0$.
+	\item[n<]
+		Begin \T{n}-iteration loop.
+	\item[>]
+		End loop.
+       \end{commandtable}
+     \end{minipage}\\
+     \mbox{}\\
+     \hline
+   \end{tabular}
+ \end{flushleft}
+
+With the addition of conditionals, you have the basic requirements of
+any programming language (sequential, repetitive, and conditional
+execution):
+ \begin{flushleft}
+   \begin{tabular}{|l|}
+     \hline
+     \mbox{}\\
+     \begin{minipage}[t]{\linewidth}
+       \begin{commandtable}
+	\item[n"x]
+		Begin the {\em then} part of a conditional.  The
+		code up to the next matching apostrophe is
+		executed if the argument \T{n} satisfies the
+		condition defined by the \T{x}, one of the
+		letters \T{A} (alphabetic), \T{D} (digit), \T{E}
+		(equal to zero), \T{G} (greater than zero), \T{L}
+		(less than zero), \T{N} (non-zero), or \T{U} (not
+		lower-case letter).
+ 	\item["\#]
+		Begin the {\em else} part of a conditional.  The code up
+		to the next matching apostrophe is executed if the
+		condition on the {\em then} part was not satisfied.
+	\item[']
+		End the {\em then} or {\em else} part of a conditional.
+       \end{commandtable}
+     \end{minipage}\\
+     \mbox{}\\
+     \hline
+   \end{tabular}
+ \end{flushleft}
+
+The next step is to add Q-registers, so you can store results.  First
+you need number storage and retrieval:
+ \begin{flushleft}
+   \begin{tabular}{|l|}
+     \hline
+     \mbox{}\\
+     \begin{minipage}[t]{\linewidth}
+       \begin{commandtable}
+	\item[nUq]
+		Put number \T{n} in Q-register \T{q}.
+	\item[Qq]
+		Get the number from Q-register \T{q}.
+       \end{commandtable}
+     \end{minipage}\\
+     \mbox{}\\
+     \hline
+   \end{tabular}
+ \end{flushleft}
+
+After awhile, you will probably want to store text in Q-registers too:
+ \begin{flushleft}
+   \begin{tabular}{|l|}
+     \hline
+     \mbox{}\\
+     \begin{minipage}[t]{\linewidth}
+       \begin{commandtable}
+	\item[:Iqstring\A{ESC}]
+		Put \T{string} in Q-register \T{q}.
+	\item[Gq]
+		Get \T{string} from Q-register \T{q} into edit buffer.
+	\item[m,nXq]
+		Copy text characters $\T{m}+1\ldots \T{n}$ from edit
+		buffer into Q-register \T{q}.
+       \end{commandtable}
+     \end{minipage}\\
+     \mbox{}\\
+     \hline
+   \end{tabular}
+ \end{flushleft}
+
+Lastly, you might need to convert numbers to strings, and vice versa:
+ \begin{flushleft}
+   \begin{tabular}{|l|}
+     \hline
+     \mbox{}\\
+     \begin{minipage}[t]{\linewidth}
+       \begin{commandtable}
+	\item[n\BS]
+		Insert printed decimal representation of number \T{n}
+		into edit buffer.
+	\item[\BS{}Uq]
+		Convert digit string in the buffer to a number stored
+		in Q-register \T{q}.
+       \end{commandtable}
+     \end{minipage}\\
+     \mbox{}\\
+     \hline
+   \end{tabular}
+ \end{flushleft}
+
+You have now learned 23 function variants and should be able to do a lot
+with them.  Since many commands allow colon and \T{@} modifiers, if you
+learn what they do for just this subset, you can probably triple your
+\TECO{} repertoire.
+
+The next time you have an editing job which does not seem to be handled
+by this small set that you know, you can consult the function guide
+section beginning on page~\pageref{function-guide}.  The table of
+contents and the index should also help you find things.
+
