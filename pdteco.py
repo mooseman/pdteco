@@ -6,13 +6,32 @@
 #  "Share and enjoy....."  ;)  
 
 #  Acknowledgement - Very many thanks to the developers of the 
-#  public-domain "eel" implementation of TECO, available here - 
+#  public-domain implementation of TECO which runs under "eel".  
+#  That version of TECO is available here - 
 #  http://www.ibiblio.org/pub/academic/computer-science/history/pdp-11/teco/eel/
 #  This Python implementation would have been much more difficult if that 
 #  version had not been available. 
 
 
 #  *** To do......  *** 
+#  NOTE - the built-in functions f.tell() and f.seek() should be very 
+#  useful. 
+#  From the Python docs - 
+#  f.tell() returns an integer giving the file object’s current position 
+#  in the file, measured in bytes from the beginning of the file. 
+#  To change the file object’s position, use f.seek(offset, from_what). 
+#  The position is computed from adding offset to a reference point; 
+#  the reference point is selected by the from_what argument. 
+#  A from_what value of 0 measures from the beginning of the file, 
+#  1 uses the current file position, and 2 uses the end of the file 
+#  as the reference point. 
+#  from_what can be omitted and defaults to 0, using the beginning of 
+#  the file as the reference point.  
+
+
+#  NOTE - Most TECO commands follow this general pattern -  
+#  nX string ESC  
+
 #  We need to implement the following types of commands - 
 #  a) The eight basic Teco functions 
 #        - DOT (current value of POINT)
@@ -41,15 +60,18 @@ class teco(object):
    def __init__(self): 
       self.dot = 0
       self.buf = [] 
+      # The "Q-registers" (variables) 
+      self.qregs = {}  
       self.fname = None 
       self.pos = self.line = 0
+       
+   # Open a file                   
+   def open(self, fname):  
       
-   def command(self, cmd):  
-      self.cmd = cmd 
-      # Handle the supplied command. 
-                                    
-   def ins(self, ch)   
-      pass 
+                                                             
+# Test the code    
+a = teco() 
+
 
 
 
