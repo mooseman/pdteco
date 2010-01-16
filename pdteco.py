@@ -39,9 +39,17 @@
 
 class teco(object): 
    def __init__(self): 
+      self.dot = 0
+      self.buf = [] 
+      self.fname = None 
+      self.pos = self.line = 0
+      
+   def command(self, cmd):  
+      self.cmd = cmd 
+      # Handle the supplied command. 
+                                    
+   def ins(self, ch)   
       pass 
-      
-      
 
 
 
