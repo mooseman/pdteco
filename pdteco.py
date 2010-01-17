@@ -4,15 +4,7 @@
 
 #  This code is released to the public domain. 
 #  "Share and enjoy....."  ;)  
-
-#  Acknowledgement - Very many thanks to the developers of the 
-#  public-domain implementation of TECO which runs under "eel".  
-#  That version of TECO is available here - 
-#  http://www.ibiblio.org/pub/academic/computer-science/history/pdp-11/teco/eel/
-#  This Python implementation would have been much more difficult if that 
-#  version had not been available. 
-
-
+#  
 #  *** To do......  *** 
 #  NOTE - the built-in functions f.tell() and f.seek() should be very 
 #  useful. 
@@ -28,12 +20,17 @@
 #  from_what can be omitted and defaults to 0, using the beginning of 
 #  the file as the reference point.  
 
-
 #  NOTE - Most TECO commands follow this general pattern -  
 #  nX string ESC  
 
 #  We need to implement the following types of commands - 
-#  a) The eight basic Teco functions 
+#  a) File commands - 
+#        - ERfname$  - open file "fname" for read access 
+#        - EBfname$  - open file for read/write with backup 
+#        - EWfname$  - open file for writing.   
+#        - EX$$ - close output file and exit.   
+
+#  b) The eight basic Teco functions 
 #        - DOT (current value of POINT)
 #        - nC - Move POINT \T{n} characters forward. 
 #        - nD - Delete \T{n} characters. 
@@ -42,20 +39,27 @@
 #        - m,nK - Kill a range of characters. 
 #        - Sstring\A{ESC} - Search for a string. 
 #        - Z - Current buffer size.  
-#  b) Line-oriented commands - 
+#  c) Line-oriented commands - 
 #        - nL - Move to beginning of $\T{n}^{th}$ line from \POINT{}. 
 #        - nK - Kill from point  to beginning of $\T{n}^{th}$ following
 #               line. 
-#  c) Looping -  
+#  d) Looping -  
 #        - n< - Begin \T{n}-iteration loop. 
 #        - >  - End loop. 
 #        - n; - Exit loop if $\T{n} \geq 0$.  
-#  d) Conditionals -  
+#  e) Conditionals -  
 #        - n"x - ( To be completed..... )      
-#  e) "Q-registers", to store results. 
-#  f) Conversion functions, from numbers to strings and vice versa.  
+#  f) "Q-registers", to store results. 
+#  g) Conversion functions, from numbers to strings and vice versa.  
     
+#  Helper functions 
 
+#  Move n characters left or right from current position 
+#  Use f.seek(n, 1) where 1 denotes "measure from current position" 
+
+import string, linecache, os, fileinput    
+  
+  
 class teco(object): 
    def __init__(self): 
       self.dot = 0
@@ -67,8 +71,42 @@ class teco(object):
        
    # Open a file                   
    def open(self, fname):  
+      #self.f = f.readlines() 
+      self.f = open(fname, 'r+') 
       
-                                                             
+   # Move to a line       
+   def move2line(self, line): 
+      pass 
+      
+   # Move by a given number of bytes from the current position   
+   def moveinline(self, n):         
+      self.f.seek(n, 1)   
+   
+   # Show the current position of the pointer. 
+   def showptr(self): 
+      return self.f.tell() 
+        
+   # Print a given number of bytes      
+   def display(self, n):                            
+      self.f.read(n)                            
+      
+   # Search for some text                         
+   def search(self, str): 
+      pass 
+      
+   # Replace some text       
+   def replace(self, target, repwith):       
+      pass  
+      
+   # Insert some text 
+   def ins_text(self, txt):
+      pass 
+      
+   # Delete some text 
+   def del_text(self, txt): 
+      pass 
+      
+                                                                                                       
 # Test the code    
 a = teco() 
 
