@@ -8,7 +8,7 @@
 
 class parser(object):
     def __init__(self, data): 
-       self.data, self.ptr = data, 0
+       self.data, self.ptr = data, 0        
     
     # Return the data at the pointer    
     def _cur(self): 
@@ -19,17 +19,28 @@ class parser(object):
        self.ptr += x
        return self.data[self.ptr-x:self.ptr]
     
+    # Parsing mode 
+    def mode(self): 
+       if self._cur == "$": 
+          return "str" 
+       else: 
+          return "char"                       
+        
     # Do stuff.                
-    def decode(self):
+    def decode(self, data):
        i = self._get(1)
        # Might make this a "while true" 
        while self._cur() != "*":
-          print "foo"       
-          self._get(1)
-        
+          self.mode() 
+          print self.mode() 
+          self._get(1) 
+                  
+    def display(self): 
+       pass 
+       
        
 # Test the code 
-a = parser() 
-
+a = parser("$bl$ahblah*") 
+a.decode("$bl$ah$blah*")
 
 
