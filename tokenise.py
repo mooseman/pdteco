@@ -10,6 +10,7 @@ class tok(object):
       
    def read(self, data): 
       for x in data: 
+         self.ptr += 1
          if x == "$": 
             self.type = "foo" 
          else: 

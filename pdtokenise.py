@@ -25,17 +25,21 @@
 import cString, string, io, os, os.path, fileinput  
 
 # Need to get - token type, token, startpos, endpos, line.
+# These are to be stored in a 5-tuple. 
+
 def tokenise(data, sep=" ")  
    tokenlist = [] 
    data, ptr = data, 0  
-   tokentype = token = None 
-   startpos = endpos = [0,0]
-   line = 0 
+   tokentypes = []    
    
    # See if data is from a file 
    if os.path.isfile(data): 
       myfile = open(data, 'r') 
       # Parse the data in the file 
+      for line in myfile: 
+         pass 
+      
+      
    else: 
       # Parse the supplied data 
       for x in data: 
