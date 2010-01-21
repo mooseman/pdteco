@@ -21,26 +21,26 @@ class parser(object):
     
     # Parsing mode 
     def mode(self): 
-       if self._cur == "$": 
-          return "str" 
+       if self._cur != "$": 
+          print "str" 
        else: 
-          return "char"                       
+          print "char"                       
         
     # Do stuff.                
-    def decode(self, data):
+    def decode(self):
        i = self._get(1)
        # Might make this a "while true" 
        while self._cur() != "*":
-          self.mode() 
-          print self.mode() 
-          self._get(1) 
+          self._get(1)  
+          self.mode()           
+          
                   
     def display(self): 
        pass 
        
        
 # Test the code 
-a = parser("$bl$ahblah*") 
-a.decode("$bl$ah$blah*")
+a = parser("$abc$*") 
+a.decode() 
 
 
