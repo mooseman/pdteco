@@ -15,7 +15,7 @@ class tok(object):
                        
    # Opon a file              
    def open(self, fname): 
-      self.myfile = open(fname, 'r+').readlines()  
+      self.myfile = open(fname, 'r+').read().splitlines() 
       #The number of lines in the file 
       self.numlines = len(self.myfile)  
    
@@ -38,7 +38,29 @@ class tok(object):
    def get(self, num): 
       self.buf = self.myfile[self.linenum][self.colnum: self.colnum + num] 
       return self.buf 
-            
+      
+   # Delete "x" characters at the current position.   
+   def delete(self, x):    
+      pass 
+      
+   # Write the string str    
+   def put(self, str):    
+      pass       
+       
+   # Search for come text  
+   # Limitation - this can't search for text which spans lines. 
+   def find(self, text): 
+      for line in self.myfile: 
+         if text in line: 
+            print "found" 
+            break 
+         else: 
+            print "not found"                
+            break 
+          
+   def display(self): 
+      print self.myfile        
+          
           
 # Test the code 
 a = tok() 
@@ -47,5 +69,5 @@ print a.tell()
 print a.get(10) 
 a.move(7)    
 print a.tell()             
-            
-
+a.find("lamb")             
+a.display() 
