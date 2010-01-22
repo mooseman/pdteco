@@ -18,7 +18,15 @@ class edit(object):
       self.myfile = open(fname, 'r+').read().splitlines() 
       #The number of lines in the file 
       self.numlines = len(self.myfile)  
-   
+      
+   # Close the file    
+   def close(self): 
+      self.myfile.close()    
+      
+   # Save the file   
+   def save(self):    
+      self.myfile.write()
+      
    # Show the current position of the pointer.                 
    def tell(self): 
       return self.pos   
@@ -87,4 +95,7 @@ a.insert("moose")
 a.move(10) 
 a.delete(5)  
 print a.tell() 
+#a.save() 
 a.display() 
+#a.close() 
+
