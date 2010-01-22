@@ -13,22 +13,28 @@ class tok(object):
    def _get(self, x):
       self.ptr += x
       return self.data[self.ptr-x:self.ptr]
-            
+      
+   def open(self, fname): 
+      self.myfile = open(fname, 'r+').readlines()  
+      #The number of lines in the file 
+      self.numlines = len(self.myfile)   
+      
+      
+   # Now - THIS part of the code is concerned with TECO. 
+   # We have opened a file. Now, we can do various operations on it.          
    def read(self): 
-      #while self._cur() != "":
-      while self._cur() != "*":
+      for x in self.data:      
          i = self._get(1)
          if i == "$": 
             self.type = "foo" 
-            print self.type      
-            #self._get(1)                      
+            print self.type                  
          else: 
             self.type = "bar" 
             print self.type          
           
 
 # Test the code 
-a = tok("abc$$def$$*") 
+a = tok("abc$$def$$") 
 a.read() 
                
             

@@ -6,6 +6,12 @@
 #  This code is released to the public domain.  
 
 import sys, math, curses, curses.ascii, traceback, string, os 
+
+
+#  Add the TECO code here.  
+
+
+
    
 #  A class to handle keystrokes  
 class keyhandler:
