@@ -14,18 +14,21 @@ class edit(object):
       self.colnum = self.pos[1] 
                        
    # Opon a file              
-   def open(self, fname): 
+   def open(self, fname):       
       self.myfile = open(fname, 'r+').read().splitlines() 
       #The number of lines in the file 
       self.numlines = len(self.myfile)  
+      
       
    # Close the file    
    def close(self): 
       self.myfile.close()    
       
    # Save the file   
-   def save(self):    
-      self.myfile.write()
+   def save(self):
+      self.outfile = open(self.myfname, 'w')
+      for line in self.myfile: 
+         self.outfile.write(line)
       
    # Show the current position of the pointer.                 
    def tell(self): 
@@ -46,9 +49,9 @@ class edit(object):
           
    # Get some data             
    def get(self, num): 
-      self.buf = self.myfile[self.linenum][self.colnum: self.colnum + num] 
+      self.buf = self.myfile[self.linenum][self.colnum: self.colnum + num]
       return self.buf 
-      
+                  
    # Delete "x" characters at the current position.   
    # Because Python strings can't be changed, we create a new string 
    # and make that the new version of the line.    
@@ -87,7 +90,7 @@ class edit(object):
 a = edit() 
 a.open('myfile.txt') 
 print a.tell() 
-print a.get(10) 
+print a.get(4) 
 a.move(7)    
 print a.tell()             
 a.find("lamb")             
