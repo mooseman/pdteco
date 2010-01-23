@@ -78,6 +78,10 @@ class edit(object):
             print "not found"
             break
           
+   # Repeat a command a given number of times. 
+   def repeat(self, cmd, *args): 
+      pass           
+          
    def display(self):
       print self.myfile
           
@@ -94,6 +98,9 @@ a.find("lamb")
 a.insert("moose") 
 a.move(5) 
 a.delete(8)  
+a.lmove(4) 
+a.move(3)
+a.insert("The quick brown fox")
 print a.tell() 
 a.save() 
 a.display() 
