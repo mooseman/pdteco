@@ -1,0 +1,1599 @@
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1"><title>TECO
+ Pocket Guide</title>
+
+</head><body><h1>TECO Pocket Guide</h1>
+
+<h2><a name="CONTENTS">      Contents                                   
+       </a></h2>
+
+<img src="Teco-Pocket-Guide_files/Teco.gif" alt="digital TECO Pocket 
+Guide cover" align="RIGHT">
+
+<ul>
+<li><a href="#NOTATION">     Notation                           </a></li>
+<li><a href="#Color">        Color Coding                       </a></li>
+<li><a href="#INVOKING">     Invoking TECO                      </a></li>
+<li><a href="#EDITING">      Immediate Mode Editing Commands    </a></li>
+<li><a href="#AIDS">         Immediate Mode Aids                </a></li>
+<li><a href="#EXECUTION">    Execution-Time Commands            </a></li>
+<li><a href="#FILE">         File Specification Commands        </a></li>
+<li><a href="#EXIT">         File Termination Commands and Exit </a></li>
+<li><a href="#AUXILIARY">    Auxiliary File Support             </a></li>
+<li><a href="#FILESPECS">    File Specifications                </a></li>
+<li><a href="#FILESWITCHES"> File Specification Switches        </a></li>
+<li><a href="#SWITCHES">     Invocation Switches                </a></li>
+<li><a href="#PAGE">         Page Manipulation Commands         </a></li>
+<li><a href="#POINTER">      Buffer Pointer Positioning Commands</a></li>
+<li><a href="#INSERTION">    Insertion Commands                 </a></li>
+<li><a href="#OPERATORS">    Arithmetic Operators               </a></li>
+<li><a href="#PRECISION">    Arithmetic Precision               </a></li>
+<li><a href="#TYPE-OUT">     Type-out Commands                  </a></li>
+<li><a href="#DELETION">     Deletion Commands                  </a></li>
+<li><a href="#POSITIONS">    Buffer Positions                   </a></li>
+<li><a href="#SEARCH">       Search Commands                    </a></li>
+<li><a href="#BOUNDED">      Bounded Search                     </a></li>
+<li><a href="#COLON">        Colon Modified Searches            </a></li>
+<li><a href="#NUMERIC">      Numeric Quantities                 </a></li>
+<li><a href="#ITERATION">    Iteration and Flow Control         </a></li>
+<li><a href="#ATMODIFIER">   @ Modifier                         </a></li>
+<li><a href="#CONDITIONALS"> Conditional Commands               </a></li>
+<li><a href="#QREGLOADING">  Q-Register Loading                 </a></li>
+<li><a href="#QREGRETRIEVAL">Q-Register Retrieval               </a></li>
+<li><a href="#RETMODE">      Retrieving Mode Control Flags      </a></li>
+<li><a href="#SETMODE">      Setting Mode Control Flags         </a></li>
+<li><a href="#RADIX">        Radix Control                      </a></li>
+<li><a href="#TRACE">        Trace Control                      </a></li>
+<li><a href="#VT52SCOPE">    VT52 Scope Control                 </a></li>
+<li><a href="#OTHERSCOPE">   VR12, VT11, or VS60 Scope Control  </a></li>
+<li><a href="#CASE">         Case Control                       </a></li>
+<li><a href="#MATCH">        Match Control Constructs           </a></li>
+<li><a href="#SEARCHCHAR">   Search String Building Characters  </a></li>
+<li><a href="#INSERTCHAR">   Insert String Building Characters  </a></li>
+<li><a href="#ERRORS">       Error Messages                     </a></li>
+<li><a href="#ASCII">        Octal and Decimal ASCII Codes      </a></li>
+<li><a href="#NOTES">        Notes                              </a></li>
+<li><a href="#NOVICE">       Novice Subset of TECO              </a></li>
+</ul>
+
+<h2><a name="NOTATION">     NOTATION                                    
+       </a></h2>
+<table>
+<tbody><tr><td>TECO-8 </td>			<td>refers to OS-8 TECO V5			</td>	</tr>
+<tr><td>TECO-10</td>			<td>refers to TOPS-10 TECO V24			</td>	</tr>
+<tr><td>TECO-11</td>			<td>refers to TECO-11 V29			</td>	</tr>
+<tr><td>RSX-11 </td>			<td>encompasses RSX-11/D, RSX-11/M, IAS and VAX </td>
+	</tr>
+<tr><td><kbd>$	       </kbd></td>	<td>represents an ESCAPE (ASCII code 
+33, which is traditionally referred to as ALTMODE) 	</td>	</tr>
+<tr><td><kbd>&lt;^x&gt;</kbd></td>	<td>represents a single control 
+character (CONTROL-x)						</td>	</tr>
+<tr><td><kbd>^x        </kbd></td>	<td>represents either &lt;^x&gt; or 
+the two-character sequence CARET-x (^x)			</td>	</tr>
+<tr><td><kbd>n	       </kbd></td>	<td>represents a numeric value 
+specified by a digit string or TECO command that returns a value </td>	</tr>
+</tbody></table>
+
+<h2><a name="Color">        Color Coding                                
+       </a></h2>
+<table>
+<tbody><tr><td>black</td>				<td>represents features of all DEC TECO's 
+[exceptions noted in brackets]</td></tr>
+<tr><td><font color="#ff0000">red  </font></td> <td><font 
+color="#ff0000">represents features of TECO-10 only</font></td></tr>
+<tr><td><font color="#0000ff">blue </font></td> <td><font 
+color="#0000ff">represents features of TECO-11 only</font></td></tr>
+</tbody></table>
+
+<center>
+<p>&nbsp;</p>
+<p>Order No. AV-D53OA-TK</p>
+<p>&nbsp;</p>
+<p>Copyright © 1978 by Digital Equipment Corporation</p>
+</center>
+
+<h2><a name="INVOKING">     INVOKING TECO                               
+       </a></h2>
+<ul>
+<li><a href="#OS8">OS/8   </a></li>
+<li><a href="#RT11">RT-11  </a></li>
+<li><a href="#RSTSE">RSTS/E </a></li>
+<li><a href="#RSX11">RSX-11 </a></li>
+<li><a href="#TOPS10">TOPS-10</a></li>
+</ul>
+
+<h3><a name="OS8">OS/8   </a></h3>
+<table>
+<tbody><tr><th align="LEFT">Command Line 	       </th><th align="LEFT">Effective
+ Initial Command</th></tr>
+<tr><td><kbd>R TECO			 </kbd></td>										      </tr>
+<tr><td><kbd>RUN dev:TECO		 </kbd></td>						  </tr>
+<tr><td><kbd>MAKE filespec		 </kbd></td><td><kbd>EWfilespec$	       </kbd></td></tr>
+<tr><td><kbd>TECO filespec		 </kbd></td><td><kbd>EBfilespec$Y	       </kbd></td></tr>
+<tr><td><kbd>TECO filespec1 &lt;filespec2</kbd></td><td><kbd>ERfilespec2$EWfilespec1$Y
+ </kbd></td></tr>
+<tr><td><kbd>TECO			 </kbd></td><td><a href="#NOTE01">[note 1]       </a></td></tr>
+<tr><td><kbd>MUNG filespec		 </kbd></td><td><kbd>ERfilespec$YHXYHKMY    
+   </kbd></td></tr>
+<tr><td><kbd>MUNG filespec,text 	 </kbd></td><td><kbd>ERfilespec$YHXYHKItext$MY
+ </kbd></td></tr>
+</tbody></table>
+
+<h3><a name="RT11">RT-11  </a></h3>
+<table>
+<tbody><tr><th align="LEFT">Command Line      </th><th align="LEFT">Effective
+ Initial Command		    </th></tr>
+<tr><td><kbd>R TECO	       </kbd></td>								 </tr>
+<tr><td><kbd>RUN dev:TECO      </kbd></td>								 </tr>
+<tr><td><kbd>EDIT/TECO filespec</kbd></td><td><kbd>EBfilespec$Y</kbd> <a
+ href="#NOTE02">[note 2]</a></td></tr>
+</tbody></table>
+
+<p>Switches on EDIT Command:</p>
+<table>
+<tbody><tr><th align="LEFT">Command Line     </th><th align="LEFT">Effective
+ Initial Command</th></tr>
+<tr><td><kbd>/CREATE	      </kbd></td><td><kbd>EWfilespec$		   </kbd></td></tr>
+<tr><td><kbd>/INSPECT	      </kbd></td><td><kbd>ERfilespec$Y		   </kbd></td></tr>
+<tr><td><kbd>/OUTPUT:filespec2</kbd></td><td><kbd>ERfilespec$EWfilespec2$
+  </kbd></td></tr>
+<tr><td><kbd>/EXECUTE	      </kbd></td><td><kbd>ERfilespec$YHXZHKMZ	   </kbd></td></tr>
+<tr><td><kbd>/EXECUTE:text    </kbd></td><td><kbd>ERfilespec$YHXZHKItext$MZ</kbd></td></tr>
+</tbody></table>
+
+<h3><a name="RSTSE">RSTS/E </a></h3>
+<table>
+<tbody><tr><th align="LEFT">Command Line 	   </th><th align="LEFT">Effective
+ Initial Command</th></tr>
+<tr><td><kbd>TECO		     </kbd></td><td><a href="#NOTE01">[note 1]</a>   
+   </td></tr>
+<tr><td><kbd>RUN $TECO		     </kbd></td>					     </tr>
+<tr><td><kbd>RUN dev:TECO[p,pn]      </kbd></td>					     </tr>
+<tr><td><kbd>TECO filespec	     </kbd></td><td><kbd>EBfilespec$Y		  </kbd></td></tr>
+<tr><td><kbd>TECO filespec1=filespec2</kbd></td><td><kbd>ERfilespec2$EWfilespec1$Y</kbd></td></tr>
+<tr><td><kbd>TECO/INSPECTfilespec    </kbd></td><td><kbd>ERfilespec$Y		 
+ </kbd></td></tr>
+<tr><td><kbd>MAKE filespec	     </kbd></td><td><kbd>EWfilespec$		  </kbd></td></tr>
+<tr><td><kbd>MUNG filespec	     </kbd></td><td><kbd>EIfilespec$		  </kbd></td></tr>
+<tr><td><kbd>MUNG filespec,text      </kbd></td><td><kbd>Itext$EIfilespec$
+	  </kbd></td></tr>
+</tbody></table>
+
+<h3><a name="RSX11">RSX-11 </a></h3>
+<table>
+<tbody><tr><th align="LEFT">Command Line 	   </th><th align="LEFT">Effective
+ Initial Command</th></tr>
+<tr><td><kbd>TECO		     </kbd></td>					     </tr>
+<tr><td><kbd>TECO filespec	     </kbd></td><td><kbd>EBfilespec$Y		  </kbd></td></tr>
+<tr><td><kbd>TECO filespec1=filespec2</kbd></td><td><kbd>ERfilespec2$EWfilespec1$Y</kbd></td></tr>
+<tr><td><kbd>MAKE filespec	     </kbd></td><td><kbd>EWfilespec$		  </kbd></td></tr>
+<tr><td><kbd>MUNG filespec	     </kbd></td><td><kbd>EIfilespec$		  </kbd></td></tr>
+<tr><td><kbd>MUNG filespec,text      </kbd></td><td><kbd>Itext$EIfilespec$
+	  </kbd></td></tr>
+</tbody></table>
+
+<h3><a name="TOPS10">TOPS-10</a></h3>
+<table>
+<tbody><tr><th align="LEFT">Command Line 	   </th><th align="LEFT">Effective
+ Initial Command</th></tr>
+<tr><td><kbd>R TECO		     </kbd></td>					     </tr>
+<tr><td><kbd>RUN dev:TECO [p,pn]     </kbd></td><td><a href="#NOTE03">[note
+ 3]</a>      </td></tr>
+<tr><td><kbd>MAKE filespec	     </kbd></td><td><kbd>EWfilespec$		  </kbd></td></tr>
+<tr><td><kbd>TECO filespec	     </kbd></td><td><kbd>EBfilespec$Y		  </kbd></td></tr>
+<tr><td><kbd>TECO filespec1=filespec2</kbd></td><td><kbd>EBfilespec1$Y		
+  </kbd></td></tr>
+<tr><td><kbd>MAKE filespec1=filespec2</kbd></td><td><kbd>ERfilespec2$EWfilespec1$Y</kbd></td></tr>
+<tr><td><kbd>TECO		     </kbd></td><td><a href="#NOTE01">[note 1]      </a></td></tr>
+<tr><td><kbd>MAKE		     </kbd></td><td><a href="#NOTE04">[note 4]      </a></td></tr>
+</tbody></table>
+
+<h2><a name="EDITING">      IMMEDIATE MODE EDITING COMMANDS             
+       </a></h2>
+<table>
+<tbody><tr><td valign="TOP"><kbd>$$		       </kbd></td><td>Executes 
+command string		      </td>			    </tr>
+<tr><td valign="TOP"><kbd>&lt;rubout&gt;	       </kbd></td><td>Deletes 
+last character in command string</td>			    </tr>
+<tr><td valign="TOP"><kbd>&lt;^C&gt;	       </kbd></td><td>Exits from 
+TECO <a href="#NOTE05">[note 5]</a>                   </td>             
+            </tr>
+<tr><td valign="TOP"><kbd>&lt;^U&gt;	       </kbd></td><td>Deletes 
+current line in command string  </td>			    </tr>
+<tr><td valign="TOP"><kbd>&lt;^G&gt;&lt;^G&gt;   </kbd></td><td>Deletes 
+the entire command string       </td>			    </tr>
+<tr><td valign="TOP"><kbd>&lt;^G&gt;&lt;space&gt;</kbd></td><td>Types 
+current line of command string    </td>			    </tr>
+<tr><td valign="TOP"><kbd>&lt;^G&gt;*	       </kbd></td><td>Types entire
+ command string	      </td><td>[not in TECO-10]</td></tr>
+</tbody></table>
+
+<h2><a name="AIDS">         IMMEDIATE MODE AIDS                         
+       </a></h2>
+<p>You must type these immediate mode commands as the first command 
+after TECO's prompt.</p>
+<table>
+<tbody><tr><td><kbd>? </kbd></td><td>Types command string up to command 
+that caused an error <a href="#NOTE06">[note 6]</a>     </td>           
+                </tr>
+<tr><td><font color="#ff0000"><kbd>/ </kbd></font></td><td><font 
+color="#ff0000">Types detailed explanation of error</font></td></tr>
+<tr><td><kbd>*q</kbd></td><td>Stores previous command string in 
+Q-register q <a href="#NOTE07">[note 7]</a>              </td><td>[not 
+in TECO-8]</td>   </tr>
+</tbody></table>
+
+<h2><a name="EXECUTION">    EXECUTION-TIME COMMANDS                     
+       </a></h2>
+<table>
+<tbody><tr><td><kbd>&lt;^C&gt;</kbd></td><td>Stops command execution <a 
+href="#NOTE08">[note 8]</a>                             </td></tr>
+<tr><td><kbd>&lt;^O&gt;</kbd></td><td>Turns off type out; nullified by a
+ second &lt;^O&gt;	</td></tr>
+<tr><td><kbd>&lt;^S&gt;</kbd></td><td>Freezes terminal output; nullified
+ by a &lt;^Q&gt; <a href="#NOTE09">[note 9]</a></td></tr>
+</tbody></table>
+
+<h2><a name="FILE">         FILE SPECIFICATION COMMANDS                 
+       </a></h2>
+<table>
+<tbody><tr><td valign="TOP"><kbd>ERfilespec$</kbd></td><td>Opens file 
+for input					</td></tr>
+<tr><td valign="TOP"><kbd>EWfilespec$</kbd></td><td>Opens file for 
+output <a href="#NOTE10">[note 10]</a>                 </td></tr>
+<tr><td valign="TOP"><kbd>EBfilespec$</kbd></td><td>Opens file for input
+ and output with backup protection</td></tr>
+<tr><td valign="TOP"><font color="#ff0000"><kbd>EZfilespec$</kbd></font></td><td><font
+ color="#ff0000">Zeros (non-disk) directory and opens file for output</font></td></tr>
+<tr><td valign="TOP"><font color="#ff0000"><kbd>nEM        </kbd></font></td><td><font
+ color="#ff0000">Positions Magtape:                                  </font></td></tr>
+<tr><td>		      </td>
+<td colspan="2">
+
+<table>
+<tbody><tr><td align="RIGHT"><font color="#ff0000"><kbd>  EM</kbd></font></td><td><font
+ color="#ff0000">Rewinds                   </font></td></tr>
+<tr><td align="RIGHT"><font color="#ff0000"><kbd> 1EM</kbd></font></td><td><font
+ color="#ff0000">Rewinds                   </font></td></tr>
+<tr><td align="RIGHT"><font color="#ff0000"><kbd> 3EM</kbd></font></td><td><font
+ color="#ff0000">Writes EOF                </font></td></tr>
+<tr><td align="RIGHT"><font color="#ff0000"><kbd> 6EM</kbd></font></td><td><font
+ color="#ff0000">Skips one record          </font></td></tr>
+<tr><td align="RIGHT"><font color="#ff0000"><kbd> 7EM</kbd></font></td><td><font
+ color="#ff0000">Backspaces one record     </font></td></tr>
+<tr><td align="RIGHT"><font color="#ff0000"><kbd> 8EM</kbd></font></td><td><font
+ color="#ff0000">Skips to EOT              </font></td></tr>
+<tr><td align="RIGHT"><font color="#ff0000"><kbd> 9EM</kbd></font></td><td><font
+ color="#ff0000">Rewinds and unloads       </font></td></tr>
+<tr><td align="RIGHT"><font color="#ff0000"><kbd>11EM</kbd></font></td><td><font
+ color="#ff0000">Writes 3 inches blank tape</font></td></tr>
+<tr><td align="RIGHT"><font color="#ff0000"><kbd>14EM</kbd></font></td><td><font
+ color="#ff0000">Advances one file         </font></td></tr>
+<tr><td align="RIGHT"><font color="#ff0000"><kbd>15EM</kbd></font></td><td><font
+ color="#ff0000">Backspaces one file       </font></td></tr>
+</tbody></table>
+
+</td></tr>
+<tr><td valign="TOP"><font color="#0000ff"><kbd>ENfilespec$ </kbd></font></td><td><font
+ color="#0000ff">Sets up wildcard file specification                    
+                       </font></td><td><font color="#0000ff">[not in 
+RT-11]</font></td></tr>
+<tr><td valign="TOP"><font color="#0000ff"><kbd>EN$         </kbd></font></td><td><font
+ color="#0000ff">Gets next wildcard match into filespec buffer          
+                       </font></td><td><font color="#0000ff">[not in 
+RT-11]</font></td></tr>
+<tr><td valign="TOP"><font color="#0000ff"><kbd>:ERfilespec$</kbd></font></td><td><font
+ color="#0000ff">Same as Erfilespec$ but returns value: -1 if file 
+found, 0 if file not found  </font></td>                                
+                    </tr>
+<tr><td valign="TOP"><font color="#0000ff"><kbd>:EBfilespec$</kbd></font></td><td><font
+ color="#0000ff">Same as Ebfilespec$ but returns value: -1 if file 
+found, 0 if file not found  </font></td>                                
+                    </tr>
+<tr><td valign="TOP"><font color="#0000ff"><kbd>:EN$        </kbd></font></td><td><font
+ color="#0000ff">Same as EN$ but returns value: -1 if next file found, 0
+ if no more files match</font></td>                                     
+               </tr>
+</tbody></table>
+
+<h2><a name="EXIT">         FILE TERMINATION COMMANDS AND EXIT          
+       </a></h2>
+<table>
+<tbody><tr><td valign="TOP"><kbd>EF	  </kbd></td><td>Closes the output 
+file 							      </td>			    </tr>
+<tr><td valign="TOP"><kbd>EC	  </kbd></td><td>Moves the remainder of the
+ input file to the output file, then closes the output file</td><td>[not
+ in TECO-10]</td></tr>
+<tr><td valign="TOP"><kbd>EX	  </kbd></td><td>Same as EC but exits from 
+TECO 						      </td>			    </tr>
+<tr><td valign="TOP"><kbd>EK	  </kbd></td><td>Kills the output file					
+			      </td><td>[not in TECO-10]</td></tr>
+<tr><td valign="TOP"><kbd>EG$	  </kbd></td><td>Same as EX but 
+re-executes the last compile-class command <a href="#NOTE11">[note 11]</a>
+                    </td>                         </tr>
+<tr><td valign="TOP"><kbd>EGcommand$</kbd></td><td>Same as EX but 
+executes the operating system command specified 		      </td><td>[not in
+ TECO-10]</td></tr>
+<tr><td valign="TOP"><kbd>^C	  </kbd></td><td>Exits from TECO <a 
+href="#NOTE12">[note 12]</a>                                            
+                  </td><td>[not in TECO-10]</td></tr>
+<tr><td valign="TOP"><font color="#ff0000"><kbd>^Z</kbd></font></td><td><font
+ color="#ff0000">Closes output file and exits from TECO</font></td>     
+                 </tr>
+</tbody></table>
+
+<h2><a name="AUXILIARY">    AUXILIARY FILE SUPPORT [not in RT-11]       
+       </a></h2>
+<p>(See illustration below)</p>
+<table>
+<tbody><tr><td valign="TOP"><font color="#0000ff"><kbd>EP         </kbd></font></td><td><font
+ color="#0000ff">Switches to secondary input stream </font></td></tr>
+<tr><td valign="TOP"><font color="#0000ff"><kbd>ER$        </kbd></font></td><td><font
+ color="#0000ff">Switches to primary input stream   </font></td></tr>
+<tr><td valign="TOP"><font color="#0000ff"><kbd>EA         </kbd></font></td><td><font
+ color="#0000ff">Switches to secondary output stream</font></td></tr>
+<tr><td valign="TOP"><font color="#0000ff"><kbd>EW$        </kbd></font></td><td><font
+ color="#0000ff">Switches to primary output stream  </font></td></tr>
+<tr><td valign="TOP"><font color="#0000ff"><kbd>EIfilespec$</kbd></font></td><td><font
+ color="#0000ff">Opens file for command input; effective at end of 
+current command string                              </font></td></tr>
+<tr><td valign="TOP"><font color="#0000ff"><kbd>EI$        </kbd></font></td><td><font
+ color="#0000ff">Switches command input to terminal and discards 
+remainder of command file after current command string</font></td></tr>
+</tbody></table>
+
+<img src="Teco-Pocket-Guide_files/Teco-11.gif" height="270" width="558">
+
+<h2><a name="FILESPECS">    FILE SPECIFICATIONS</a> <a href="#NOTE03">[note
+ 3] </a></h2>
+<table>
+<tbody><tr><th>System </th><th align="LEFT">Input		 </th><th 
+align="LEFT">Output			   </th></tr>
+<tr><td>OS-8   </td><td><kbd>dev:name.ex	   </kbd></td><td><kbd>dev:name.ex
+		     </kbd></td></tr>
+<tr><td>TOPS-10</td><td><kbd>dev:name.ext[p,pn]    </kbd></td><td><kbd>dev:name.ext[p,pn]&lt;prot&gt;</kbd></td></tr>
+<tr><td>RT-11  </td><td><kbd>dev:name.ext	   </kbd></td><td><kbd>dev:name.ext[len]
+	     </kbd></td></tr>
+<tr><td>RSTS/E </td><td><kbd>dev:[p,pn]name.ext    </kbd></td><td><kbd>dev:[p,pn]name.ext&lt;prot&gt;</kbd></td></tr>
+<tr><td>RSX-11 </td><td><kbd>dev:[p,pn]name.ext;ver</kbd></td><td><kbd>dev:[p,pn]name.ext;ver
+	     </kbd></td></tr>
+</tbody></table>
+
+<h2><a name="FILESWITCHES"> FILE SPECIFICATION SWITCHES                 
+       </a></h2>
+<table>
+<tbody><tr><td rowspan="2" valign="TOP">TOPS-10</td><td><kbd>/GENLSN	</kbd></td><td>Generates
+ line sequence numbers				    </td></tr>
+<tr>					 <td><kbd>/SUPLSN	</kbd></td><td>Suppresses line sequence 
+numbers 			    </td></tr>
+<tr><td rowspan="5" valign="TOP">RSTS/E </td><td><kbd>/MODE:n	</kbd></td><td>Uses
+ nonstandard open mode				    </td></tr>
+<tr>					 <td><kbd>/CLUSTERSIZE:n</kbd></td><td>Specifies output file 
+cluster size			    </td></tr>
+<tr>					 <td><kbd>/B+		</kbd></td><td>Edits a BASIC-PLUS file					    </td></tr>
+<tr>					 <td><kbd>/B2		</kbd></td><td>Edits a BASIC-PLUS-2 file (same 
+as /72)			    </td></tr>
+<tr>					 <td><kbd>/n		</kbd></td><td>Handles BASIC-PLUS continuation 
+character (&amp;) in column n</td></tr>
+<tr><td rowspan="4" valign="TOP">RSX-11 </td><td><kbd>/RW		</kbd></td><td>Rewinds
+ before opening file (magtape only)		    </td></tr>
+<tr>					 <td><kbd>/CR		</kbd></td><td>Implied carriage control 				    </td></tr>
+<tr>					 <td><kbd>/-CR		</kbd></td><td>No (internal) carriage control		
+		    </td></tr>
+<tr>					 <td><kbd>/FT		</kbd></td><td>FORTRAN carriage control 				    </td></tr>
+</tbody></table>
+
+<h2><a name="SWITCHES">     INVOCATION SWITCHES                         
+       </a></h2>
+<table>
+<tbody><tr><td rowspan="2" valign="TOP">RSTS/E	</td><td><kbd>/SIZE:n </kbd></td><td>starts
+ with nK word editing area		  </td></tr>
+<tr>					     <td><kbd>/SIZE:+n</kbd></td><td>starts with extra nK words
+ of editing area   </td></tr>
+<tr><td valign="TOP">RSX-11		</td><td><kbd>/INC=n  </kbd></td><td>starts
+ with extra nK words of editing area   </td></tr>
+</tbody></table>
+
+<h2><a name="PAGE">         PAGE MANIPULATION COMMANDS                  
+       </a></h2>
+<table>
+<tbody><tr><td valign="TOP"><kbd>   A </kbd></td><td>Appends next page 
+of input file to text buffer   </td></tr>
+<tr><td valign="TOP"><font color="#0000ff"><kbd>:A   </kbd></font></td><td><font
+ color="#0000ff">Appends next line of input file to text buffer      </font></td></tr>
+<tr><td valign="TOP"><kbd>   Y </kbd></td><td>Same as HKA 				     </td></tr>
+<tr><td valign="TOP"><kbd>   PW</kbd></td><td>Outputs current page and 
+appends a form feed     </td></tr>
+<tr><td valign="TOP"><kbd>  nPW</kbd></td><td>Same as n&lt;PW&gt; 			   
+  </td></tr>
+<tr><td valign="TOP"><kbd>m,nPW</kbd></td><td>Outputs the characters 
+between text buffer pointer positions m and n (without a form feed)	   </td></tr>
+<tr><td valign="TOP"><kbd>   P </kbd></td><td>Outputs the text buffer, 
+clears the buffer, and reads the next page of the input file into the 
+buffer; a form feed is appended to the output file if the last read was 
+terminated with a form feed</td></tr>
+<tr><td valign="TOP"><kbd>  nP </kbd></td><td>Same as n&lt;P&gt;				    
+ </td></tr>
+<tr><td valign="TOP"><kbd>m,nP </kbd></td><td>Same as m,nPW				     </td></tr>
+</tbody></table>
+
+<h2><a name="POINTER">      BUFFER POINTER POSITIONING COMMANDS         
+       </a></h2>
+<table>
+<tbody><tr><td valign="TOP"><kbd>nJ</kbd></td><td>Moves pointer to 
+immediately following the nth character in the text buffer</td></tr>
+<tr><td valign="TOP"><kbd>0J</kbd></td><td>Moves pointer to beginning of
+ buffer					    </td></tr>
+<tr><td valign="TOP"><kbd> J</kbd></td><td>Same as  0J								    </td></tr>
+<tr><td valign="TOP"><kbd>nC</kbd></td><td>Advances pointer n positions	
+					    </td></tr>
+<tr><td valign="TOP"><kbd> C</kbd></td><td>Same as  1C								    </td></tr>
+<tr><td valign="TOP"><kbd>-C</kbd></td><td>Same as -1C								    </td></tr>
+<tr><td valign="TOP"><kbd>nR</kbd></td><td>Backs up pointer n positions 
+(same as -nC)				    </td></tr>
+<tr><td valign="TOP"><kbd> R</kbd></td><td>Same as  1R								    </td></tr>
+<tr><td valign="TOP"><kbd>-R</kbd></td><td>Same as -1R								    </td></tr>
+<tr><td valign="TOP"><kbd>nL</kbd></td><td>Moves pointer to beginning of
+ nth line from current pointer position	    </td></tr>
+<tr><td valign="TOP"><kbd> L</kbd></td><td>Same as  1L								    </td></tr>
+<tr><td valign="TOP"><kbd>-L</kbd></td><td>Same as -1L								    </td></tr>
+</tbody></table>
+
+<h2><a name="INSERTION">    INSERTION COMMANDS                          
+       </a></h2>
+<p>The pointer is positioned after the inserted text.</p>
+<table>
+<tbody><tr><td valign="TOP"><kbd>Itext$		   </kbd></td><td>Inserts the 
+text specified		   </td></tr>
+<tr><td valign="TOP"><kbd>nI$		   </kbd></td><td>Inserts character whose
+ ASCII code is n  </td></tr>
+<tr><td valign="TOP"><kbd>&lt;tab&gt;text$   </kbd></td><td>Inserts 
+specified text preceded by a tab </td></tr>
+<tr><td valign="TOP"><kbd>^Itext$ 	   </kbd></td><td>Inserts specified 
+text preceded by a tab </td></tr>
+<tr><td valign="TOP"><kbd>n\		   </kbd></td><td>Inserts current radix 
+representation of n in text buffer (signed if current radix is decimal, 
+unsigned if octal) <a href="#NOTE13">[note 13]</a></td></tr>
+<tr><td valign="TOP"><font color="#0000ff"><kbd>FRtext$      </kbd></font></td><td><font
+ color="#0000ff">Same as ^SDItext$        </font></td></tr>
+</tbody></table>
+
+<h2><a name="OPERATORS">    ARITHMETIC OPERATORS                        
+       </a></h2>
+<p>Operators are evaluated from left to right.</p>
+<table>
+<tbody><tr><td><kbd> +n</kbd></td><td>Same as n			</td></tr>
+<tr><td><kbd> -n</kbd></td><td>Negative of n			</td></tr>
+<tr><td><kbd>m+n</kbd></td><td>Addition <a href="#NOTE14">[note 14]</a> 
+        </td></tr>
+<tr><td><kbd>m-n</kbd></td><td>Subtraction			</td></tr>
+<tr><td><kbd>m*n</kbd></td><td>Multiplication			</td></tr>
+<tr><td><kbd>m/n</kbd></td><td>Division, remainder discarded	</td></tr>
+<tr><td><kbd>m&amp;n</kbd></td><td>Bitwise logical AND		</td></tr>
+<tr><td><kbd>m#n</kbd></td><td>Bitwise logical OR		</td></tr>
+<tr><td><kbd>(m)</kbd></td><td>Performs enclosed operations first</td></tr>
+<tr><td><font color="#0000ff"><kbd>n^_</kbd></font></td><td><font 
+color="#0000ff">One's complement of n</font></td></tr>
+</tbody></table>
+
+<h2><a name="PRECISION">    ARITHMETIC PRECISION                        
+       </a></h2>
+<table>
+<tbody><tr><td>TECO-8 </td><td><kbd>1-2^12 &lt;= n &lt;= 2^12-1</kbd></td></tr>
+<tr><td>TECO-11</td><td><kbd> -2^15 &lt;= n &lt;= 2^15-1</kbd></td></tr>
+<tr><td>TECO-10</td><td><kbd> -2^35 &lt;= n &lt;= 2^35-1</kbd></td></tr>
+</tbody></table>
+
+<h2><a name="TYPE-OUT">     TYPE-OUT COMMANDS                           
+       </a></h2>
+<table>
+<tbody><tr><td valign="TOP"><kbd>  nT		</kbd></td><td>Types out all the 
+text from the current pointer position to the beginning of the nth line 
+from the current pointer position</td></tr>
+<tr><td valign="TOP"><kbd>   T		</kbd></td><td>Same as 1T							    </td>
+			  </tr>
+<tr><td valign="TOP"><kbd>  -T		</kbd></td><td>Same as -1T							    </td>
+			  </tr>
+<tr><td valign="TOP"><kbd>m,nT		</kbd></td><td>Types the characters 
+between pointer positions m and n		    </td>			  </tr>
+<tr><td valign="TOP"><font color="#0000ff"><kbd>  nV </kbd></font></td><td><font
+ color="#0000ff">Same as (1-n)TnT      </font></td>                     
+    </tr>
+<tr><td valign="TOP"><font color="#0000ff"><kbd>   V </kbd></font></td><td><font
+ color="#0000ff">Same as 0TT           </font></td>                     
+    </tr>
+<tr><td valign="TOP"><kbd>^Atext&lt;^A&gt;</kbd></td><td>Types the text 
+specified 					    </td>			  </tr>
+<tr><td valign="TOP"><kbd>n=		</kbd></td><td>Types value of n in decimal
+ (signed) followed by &lt;CR&gt;&lt;LF&gt;</td>			  </tr>
+<tr><td valign="TOP"><kbd>n==		</kbd></td><td>Types value of n in octal <a
+ href="#NOTE15">[note 15]</a>  followed by &lt;CR&gt;&lt;LF&gt;</td>    
+               </tr>
+<tr><td valign="TOP"><kbd>n:=		</kbd></td><td>Types value of n in 
+decimal (signed)				    </td><td>[not in TECO-10]</td></tr>
+<tr><td valign="TOP"><kbd>n:==		</kbd></td><td>Types value of n in octal
+ (unsigned)				    </td><td>[not in TECO-10]</td></tr>
+<tr><td valign="TOP"><kbd> n^T		</kbd></td><td>Types out the character 
+whose ASCII code is n			    </td><td>[not in TECO-10]</td></tr>
+<tr><td valign="TOP"><kbd>  ^L		</kbd></td><td>Types a form feed						  
+  </td><td>[not in TECO-8] </td></tr>
+</tbody></table>
+
+<h2><a name="DELETION">     DELETION COMMANDS                           
+       </a></h2>
+<table>
+<tbody><tr><td valign="TOP"><kbd>  nD</kbd></td><td>Deletes n characters
+ following the current pointer position</td></tr>
+<tr><td valign="TOP"><kbd> -nD</kbd></td><td>Deletes n characters 
+preceding the current pointer position</td></tr>
+<tr><td valign="TOP"><kbd>   D</kbd></td><td>Same as  1D						      </td></tr>
+<tr><td valign="TOP"><kbd>  -D</kbd></td><td>Same as  -D						      </td></tr>
+<tr><td valign="TOP"><font color="#0000ff"><kbd>m,nD</kbd></font></td><td><font
+ color="#0000ff">Same as m,nK </font></td></tr>
+<tr><td valign="TOP"><kbd>  nK</kbd></td><td>Deletes all characters in 
+the text buffer from the current pointer position to the beginning of 
+the nth line from the current pointer position</td></tr>
+<tr><td valign="TOP"><kbd>   K</kbd></td><td>Same as  1K						      </td></tr>
+<tr><td valign="TOP"><kbd>  -K</kbd></td><td>Same as -1K						      </td></tr>
+<tr><td valign="TOP"><kbd>m,nK</kbd></td><td>Deletes all characters in 
+the text buffer between pointer positions m and n; the pointer moves to 
+position m    </td></tr>
+</tbody></table>
+
+<h2><a name="POSITIONS">    BUFFER POSITIONS                            
+       </a></h2>
+<table>
+<tbody><tr><td valign="TOP"><kbd> B </kbd></td><td>First pointer 
+position; same as 0						    </td></tr>
+<tr><td valign="TOP"><kbd> Z </kbd></td><td>Last pointer position; equal
+ to number of characters in text buffer		    </td></tr>
+<tr><td valign="TOP"><kbd> . </kbd></td><td>Current pointer position; 
+equal to number of characters to the left of the pointer</td></tr>
+<tr><td valign="TOP"><kbd>m,n</kbd></td><td>(m+1)st through nth 
+characters in the text buffer				    </td></tr>
+<tr><td valign="TOP"><kbd> H </kbd></td><td>Same as B,Z									    </td></tr>
+<tr><td valign="TOP"><font color="#0000ff"><kbd>^Y </kbd></font></td><td><font
+ color="#0000ff">Same as .+^S,.          </font></td></tr>
+</tbody></table>
+
+<h2><a name="SEARCH">       SEARCH COMMANDS                             
+       </a></h2>
+<p>Searches that fail leave the pointer at position 0
+<br>Successful searches leave pointer after text found</p>
+
+<table>
+<tbody><tr><td valign="TOP"><kbd>nStext$ 	   </kbd></td><td>Searches for
+ the nth occurrence of the specified text (following the pointer), but 
+does not go beyond the end of the current text buffer</td></tr>
+<tr><td valign="TOP"><kbd> Stext$ 	   </kbd></td><td>Same as 1Stext$				
+											  </td></tr>
+<tr><td valign="TOP"><font color="#0000ff"><kbd>-nStext$       </kbd></font></td><td><font
+ color="#0000ff">Same as nStext$ but the search proceeds backwards      
+                           </font></td></tr>
+<tr><td valign="TOP"><kbd>nNtext$ 	   </kbd></td><td>Same as nStext$, 
+except that if the text is not found on the current page, pages are 
+input and output until it is found		  </td></tr>
+<tr><td valign="TOP"><kbd> Ntext$ 	   </kbd></td><td>Same as 1Ntext$				
+											  </td></tr>
+<tr><td valign="TOP"><kbd>n_text$ 	   </kbd></td><td>Same as nNtext$, 
+except that it does input only, no output										  </td></tr>
+<tr><td valign="TOP"><kbd> _text$ 	   </kbd></td><td>Same as 1_text$				
+											  </td></tr>
+<tr><td valign="TOP"><kbd>nFStext1$text2$    </kbd></td><td>Executes the
+ nStext1$ command, then deletes text1 and replaces it with text2								
+  </td></tr>
+<tr><td valign="TOP"><kbd> FStext1$text2$    </kbd></td><td>Same as 
+1FStext1$text2$														  </td></tr>
+<tr><td valign="TOP"><kbd>nFNtext1$text2$    </kbd></td><td>Executes the
+ nNtext1$ command, then deletes text1 and replaces it with text2								
+  </td></tr>
+<tr><td valign="TOP"><kbd> FNtext1$text2$    </kbd></td><td>Same as 
+1FNtext1$text2$														  </td></tr>
+<tr><td valign="TOP"><font color="#0000ff"><kbd>nF_text1$text2$</kbd></font></td><td><font
+ color="#0000ff">Executes the n_text1$ command, then deletes text1 and 
+replaces it with text2      </font></td></tr>
+<tr><td valign="TOP"><font color="#0000ff"><kbd> F_text1$text2$</kbd></font></td><td><font
+ color="#0000ff">Same as 1F_text1$text2$                                
+                           </font></td></tr>
+</tbody></table>
+
+<h2><a name="BOUNDED">      BOUNDED SEARCH                              
+       </a></h2>
+<p>Bounded searches that fail leave the pointer unchanged</p>
+
+<table>
+<tbody><tr><td valign="TOP"><font color="#0000ff"><kbd>m,nStext$</kbd></font></td><td><font
+ color="#0000ff">Same as nStext$, but the search does not continue 
+across more than |m|-1 characters </font></td></tr>
+<tr><td valign="TOP"><font color="#0000ff"><kbd>0,nStext$</kbd></font></td><td><font
+ color="#0000ff">Same as nStext$, but the pointer position remains 
+unchanged on search string failure</font></td></tr>
+<tr><td valign="TOP"><font color="#0000ff"><kbd> m,Stext$</kbd></font></td><td><font
+ color="#0000ff">Same as m,1Stext$                                      
+                             </font></td></tr>
+<tr><td valign="TOP"><font color="#0000ff"><kbd>m,-Stext$</kbd></font></td><td><font
+ color="#0000ff">Same as m,-1Stext$                                     
+                             </font></td></tr>
+<tr><td valign="TOP"><font color="#0000ff"><kbd> ::Stext$</kbd></font></td><td><font
+ color="#0000ff">Same as 1,1:Stext$ (anchored search)                   
+                             </font></td></tr>
+</tbody></table>
+
+<h2><a name="COLON">        COLON MODIFIED SEARCHES                     
+       </a></h2>
+<p>Any search command preceded by a colon (:) modifier returns a value 
+as follows:</p>
+<table>
+<tbody><tr><td>-1</td><td>If the search succeeds</td></tr>
+<tr><td> 0</td><td>If the search fails	 </td></tr>
+</tbody></table>
+
+<h2><a name="NUMERIC">      NUMERIC QUANTITIES                          
+       </a></h2>
+<table>
+<tbody><tr><td valign="TOP"><kbd> 0A</kbd></td><td>ASCII code for 
+character following pointer			</td>			      </tr>
+<tr><td valign="TOP"><kbd> nA</kbd></td><td>ASCII code for the (.+n+l)th
+ character in the buffer <a href="#NOTE16">[note 16]</a></td><td>[not in
+ TECO-10]</td></tr>
+<tr><td valign="TOP"><kbd>  \</kbd></td><td>Equal to the value of the 
+digit string (if any) that follows the pointer in the text buffer 
+(interpreted in the current radix <a href="#NOTE13">[note 13]</a>, and 
+optionally signed); pointer is positioned after the digit string. Equal 
+to 0 if no digit string is present.</td></tr>
+<tr><td valign="TOP"><kbd> ^B</kbd></td><td>Operating-system dependent 
+encoding of current date		</td>			      </tr>
+<tr><td></td><td colspan="2">
+
+<table>
+<tbody><tr><td>RT-11: </td><td>(((month*32)+day)*32)+year-1972   </td></tr>
+<tr><td>RSTS/E:</td><td>((year-1970)*1000)+day within year</td></tr>
+<tr><td>RSX-11:</td><td>((year-1900)*16+month)*32+day	  </td></tr>
+</tbody></table>
+
+</td></tr>
+<tr><td valign="TOP"><kbd> ^F</kbd></td><td>Value of console switch 
+register				   </td></tr>
+<tr><td valign="TOP"><kbd> ^H</kbd></td><td>Operating system dependent 
+encoding of time of day		   </td></tr>
+<tr><td></td><td colspan="2">
+
+<table>
+<tbody><tr><td>OS-8:	</td><td>0				 </td></tr>
+<tr><td>RT-11:	</td><td>0				 </td></tr>
+<tr><td>RSTS/E: </td><td>minutes until midnight 	 </td></tr>
+<tr><td>RSX-11: </td><td>(seconds since midnight)/2	 </td></tr>
+<tr><td>TOPS-10:</td><td>60ths of a second since midnight</td></tr>
+</tbody></table>
+
+</td></tr>
+<tr><td valign="TOP"><font color="#0000ff"><kbd>:Qq</kbd></font></td><td><font
+ color="#0000ff">Number of characters stored in Q-register q            
+                                                     </font></td></tr>
+<tr><td valign="TOP"><font color="#0000ff"><kbd>n^Q</kbd></font></td><td><font
+ color="#0000ff">Number of characters between the buffer pointer and the
+ nth line separator from the current pointer position</font></td></tr>
+<tr><td valign="TOP"><font color="#0000ff"><kbd> ^Q</kbd></font></td><td><font
+ color="#0000ff">Same as 1^Q                                            
+                                                     </font></td></tr>
+<tr><td valign="TOP"><font color="#0000ff"><kbd> ^S</kbd></font></td><td><font
+ color="#0000ff">Negative of length of last insert, string found, or 
+string inserted with G command, whichever occurred last </font></td></tr>
+<tr><td valign="TOP"><kbd> ^T</kbd></td><td>ASCII code for the next 
+character typed at the terminal	   </td></tr>
+<tr><td valign="TOP"><kbd>^^x</kbd></td><td>ASCII code for the character
+ (x) specified			   </td></tr>
+</tbody></table>
+
+<h2><a name="ITERATION">    ITERATION AND FLOW CONTROL                  
+       </a></h2>
+<table>
+<tbody><tr><td valign="TOP"><kbd>n&lt;commands&gt;</kbd></td><td>Performs
+ the enclosed command string n times; skips the commands if n &lt;= 0	  
+   </td></tr>
+<tr><td valign="TOP"><kbd>&lt;commands&gt; </kbd></td><td>Performs the 
+enclosed command string an indefinite number of times		     </td></tr>
+<tr><td valign="TOP"><kbd>n;		 </kbd></td><td>If n &gt;= 0, jumps out of
+ the current iteration field				     </td></tr>
+<tr><td valign="TOP"><kbd>;		 </kbd></td><td>Jumps out of the current 
+iteration field if the last search executed failed <a href="#NOTE17">[note
+ 17]</a></td></tr>
+<tr><td valign="TOP"><kbd>!tag!		 </kbd></td><td>Defines a position in 
+the command string with the name, tag			     </td></tr>
+<tr><td valign="TOP"><kbd>Otag$		 </kbd></td><td>Jumps to the position 
+defined by !tag!; must be in same macro level <a href="#NOTE18">[note 
+18]</a>          </td></tr>
+</tbody></table>
+
+<h2><a name="ATMODIFIER">   @ MODIFIER                                  
+       </a></h2>
+<p>@ Modifies the next command that takes a text argument to use the 
+delimiter form; text is surrounded by a delimiter (shown here as "/") 
+that cannot appear inside the text. The format of the commands becomes:</p>
+
+<table>
+<tbody><tr><td><kbd>@nS/text/		</kbd></td></tr>
+<tr><td><kbd>@nN/text/		</kbd></td></tr>
+<tr><td><kbd>@n_/text/		</kbd></td></tr>
+<tr><td><kbd>@nFS/textl/text2/	</kbd></td></tr>
+<tr><td><kbd>@nFN/textl/text2/	</kbd></td></tr>
+<tr><td><kbd>@I/text/		</kbd></td></tr>
+<tr><td><kbd>@nI//		</kbd></td></tr>
+<tr><td><kbd>@ER/filespec/	</kbd></td><td>[not in TECO-10]</td></tr>
+<tr><td><kbd>@EW/filespec/	</kbd></td><td>[not in TECO-10]</td></tr>
+<tr><td><kbd>@EB/filespee/	</kbd></td><td>[not in TECO-10]</td></tr>
+<tr><td><kbd>@^Uq/text/ 	</kbd></td><td>[not in TECO-10]</td></tr>
+<tr><td><kbd>@EG/text/		</kbd></td><td>[not in TECO-10]</td></tr>
+<tr><td><kbd>@EG//		</kbd></td><td>[not in TECO-10]</td></tr>
+<tr><td><font color="#0000ff"><kbd>@EN/filespec/</kbd></font></td></tr>
+<tr><td><font color="#0000ff"><kbd>@EI/filespec/</kbd></font></td></tr>
+<tr><td><font color="#0000ff"><kbd>@FR/text/    </kbd></font></td></tr>
+<tr><td><font color="#0000ff"><kbd>@^A/text/    </kbd></font></td></tr>
+<tr><td><font color="#0000ff"><kbd>@!/tag/      </kbd></font></td></tr>
+<tr><td><font color="#0000ff"><kbd>@O/tag/      </kbd></font></td></tr>
+<tr><td><font color="#0000ff"><kbd>@n^Uq//      </kbd></font></td></tr>
+</tbody></table>
+
+<h2><a name="CONDITIONALS"> CONDITIONAL COMMANDS                        
+       </a></h2>
+<table>
+<tbody><tr><td valign="TOP"><kbd>n"Acommands'</kbd></td><td>Executes the
+ commands if n is the ASCII code for an alphabetic character (A-Z or 
+a-z)</td><td>[not in TECO-8]</td></tr>
+<tr><td valign="TOP"><kbd>n"Ccommands'</kbd></td><td>Executes the 
+commands if n is the ASCII code for a symbol constituent                </td>
+                        </tr>
+<tr><td></td><td colspan="2">
+
+<table>
+<tbody><tr><td>TECO-8: </td><td><kbd>A-Z,a-z,0-9      </kbd></td></tr>
+<tr><td>TECO-11:</td><td><kbd>A-Z,a-z,0-9,.,$  </kbd></td></tr>
+<tr><td>TECO-10:</td><td><kbd>A-Z,a-z,0-9,.,$,%</kbd></td></tr>
+</tbody></table>
+
+</td></tr>
+<tr><td valign="TOP"><kbd>n"Dcommands'</kbd></td><td>Executes the 
+commands if n is the ASCII code for a digit (0-9)                 </td><td>[not
+ in TECO-8] </td></tr>
+<tr><td valign="TOP"><kbd>n"Ecommands'</kbd></td><td>Executes the 
+commands if n=0                                                   </td> 
+                        </tr>
+<tr><td valign="TOP"><kbd>n"Fcommands'</kbd></td><td>Executes the 
+commands if n represents FALSE; same as n"Ecommands'              </td> 
+                        </tr>
+<tr><td valign="TOP"><kbd>n"Gcommands'</kbd></td><td>Executes the 
+commands if n&gt;0                                                </td> 
+                        </tr>
+<tr><td valign="TOP"><kbd>n"Lcommands'</kbd></td><td>Executes the 
+commands if n&lt;0                                                </td> 
+                        </tr>
+<tr><td valign="TOP"><kbd>n"Ncommands'</kbd></td><td>Executes the 
+commands if n*0                                                   </td> 
+                        </tr>
+<tr><td valign="TOP"><kbd>n"Rcommands'</kbd></td><td>Executes the 
+commands if n is the ASCII code for an alphanumeric (A-Z,a-z,0-9) </td><td>[not
+ in TECO-10]</td></tr>
+<tr><td valign="TOP"><kbd>n"Scommands'</kbd></td><td>Executes the 
+commands if n represents SUCCESS; same as n"Lcommands'            </td> 
+                        </tr>
+<tr><td valign="TOP"><kbd>n"Tcommands'</kbd></td><td>Executes the 
+commands if n represents TRUE; same as n"Lcommands'               </td> 
+                        </tr>
+<tr><td valign="TOP"><kbd>n"Ucommands'</kbd></td><td>Executes the 
+commands if n represents UNSUCCESSFUL; same as n"Ecommands'       </td> 
+                        </tr>
+<tr><td valign="TOP"><kbd>n"Vcommands'</kbd></td><td>Executes the 
+commands if n is the ASCII code for a lower case alphabetic (a-z) </td><td>[not
+ in TECO-8] </td></tr>
+<tr><td valign="TOP"><kbd>n"Wcommands'</kbd></td><td>Executes the 
+commands if n is the ASCII code for an upper case alphabetic (A-Z)</td><td>[not
+ in TECO-8] </td></tr>
+<tr><td valign="TOP"><kbd>n"&lt;commands'</kbd></td><td>Same as 
+n"Lcommands'</td><td>[not in TECO-10]</td></tr>
+<tr><td valign="TOP"><kbd>n"&gt;commands'</kbd></td><td>Same as 
+n"Gcommands'</td><td>[not in TECO-10]</td></tr>
+</tbody></table>
+
+<h2><a name="QREGLOADING">  Q-REGISTER LOADING</a> <a href="#NOTE19">[note
+ 19] </a></h2>
+<table>
+<tbody><tr><td valign="TOP"><kbd>nUq	</kbd></td><td>Stores integer n in Q
+ register q 											   </td></tr>
+<tr><td valign="TOP"><kbd>%q	</kbd></td><td>Adds 1 to the number in 
+Q-register q and returns this value								   </td></tr>
+<tr><td valign="TOP"><kbd>n%q	</kbd></td><td>Adds n to the number in 
+Q-register q and returns this value <a href="#NOTE20">[note 20]</a>     
+                                                    </td><td>[not in 
+TECO-10]</td></tr>
+<tr><td valign="TOP"><kbd>nXq	</kbd></td><td>Stores, in Q-register q, 
+all characters from the current pointer position to the beginning of the
+ nth line from the current pointer position</td></tr>
+<tr><td valign="TOP"><kbd>m,nXq	</kbd></td><td>Stores, in Q-register q, 
+all characters between text buffer pointer positions m and n					   </td></tr>
+<tr><td valign="TOP"><kbd>Xq	</kbd></td><td>Same as 1Xq														   </td></tr>
+<tr><td valign="TOP"><kbd>-Xq	</kbd></td><td>Same as -1Xq														 
+  </td></tr>
+<tr><td valign="TOP"><font color="#0000ff"><kbd>n:Xq         </kbd></font></td><td><font
+ color="#0000ff">Same as nXq, but appends to Q-register                 
+             </font></td></tr>
+<tr><td valign="TOP"><font color="#0000ff"><kbd>m,n:Xq       </kbd></font></td><td><font
+ color="#0000ff">Same as m,nXq, but appends to Q-register               
+             </font></td></tr>
+<tr><td valign="TOP"><font color="#0000ff"><kbd>:Xq          </kbd></font></td><td><font
+ color="#0000ff">Same as 1:Xq                                           
+             </font></td></tr>
+<tr><td valign="TOP"><font color="#0000ff"><kbd>-:Xq         </kbd></font></td><td><font
+ color="#0000ff">Same as -1:Xq                                          
+             </font></td></tr>
+<tr><td valign="TOP"><kbd>^Uqtext$</kbd></td><td>Stores the specified 
+text in Q-register q										   </td><td>[not in TECO-10]</td></tr>
+<tr><td valign="TOP"><font color="#0000ff"><kbd>:^Uqtext$    </kbd></font></td><td><font
+ color="#0000ff">Same as ^Uqtext$, but appends to Q-register q          
+             </font></td></tr>
+<tr><td valign="TOP"><font color="#0000ff"><kbd>n^Uq$        </kbd></font></td><td><font
+ color="#0000ff">Stores character whose ASCII code is n in Q-register q 
+             </font></td></tr>
+<tr><td valign="TOP"><font color="#0000ff"><kbd>n:^Uq$       </kbd></font></td><td><font
+ color="#0000ff">Appends character whose ASCII code is n to contents of 
+Q-register q </font></td></tr>
+<tr><td valign="TOP"><kbd>]q	</kbd></td><td>Pops from the Q-register 
+push-down list into Q-register q <a href="#NOTE21">[note 21]</a>        
+                                                   </td><td>[not in 
+TECO-8] </td></tr>
+<tr><td valign="TOP"><font color="#0000ff"><kbd>:]q          </kbd></font></td><td><font
+ color="#0000ff">Same as ]q, but returns value (-1 if successful, 0 if 
+push down stack was empty)</font></td><td>&nbsp;</td></tr>
+</tbody></table>
+
+<h2><a name="QREGRETRIEVAL">Q-REGISTER RETRIEVAL</a> <a href="#NOTE19">[note
+ 19]</a></h2>
+<table>
+<tbody><tr><td valign="TOP"><kbd>   Qq</kbd></td><td>Returns the numeric
+ value stored in Q-register q										    </td></tr>
+<tr><td valign="TOP"><kbd>   Gq</kbd></td><td>Places the text in 
+Q-register q into the text buffer before the current pointer position			
+		    </td></tr>
+<tr><td valign="TOP"><kbd>  :Gq</kbd></td><td>Types the contents of the 
+text stored in Q-register q on the terminal				   </td><td>[not in 
+TECO-10]</td></tr>
+<tr><td valign="TOP"><kbd>   Mq</kbd></td><td>Executes the text in 
+Q-register q as a command string									    </td></tr>
+<tr><td valign="TOP"><kbd>  nMq</kbd></td><td>Executes the text in 
+Q-register q as a command string and uses n as a numeric argument for 
+the first command executed	    </td></tr>
+<tr><td valign="TOP"><kbd>m,nMq</kbd></td><td>Executes the text in 
+Q-register q as a command string and uses m,n as a pair of numeric 
+arguments for the first command executed</td></tr>
+<tr><td valign="TOP"><kbd>   [q</kbd></td><td>Pushes the contents of 
+Q-register q onto the Q-register push-down list <a href="#NOTE21">[note 
+21]</a>                                                  </td></tr>
+<tr><td valign="TOP"><font color="#0000ff"><kbd> G*</kbd></font></td><td><font
+ color="#0000ff">Places the text from the filespec buffer into the text 
+buffer before the current pointer position     </font></td></tr>
+<tr><td valign="TOP"><font color="#0000ff"><kbd>:G*</kbd></font></td><td><font
+ color="#0000ff">Types the contents of the filespec buffer on the 
+terminal                                             </font></td></tr>
+<tr><td valign="TOP"><font color="#0000ff"><kbd> G_</kbd></font></td><td><font
+ color="#0000ff">Places the text from the search string buffer into the 
+text buffer before the current pointer position</font></td></tr>
+<tr><td valign="TOP"><font color="#0000ff"><kbd>:G_</kbd></font></td><td><font
+ color="#0000ff">Types the contents of the search string buffer on the 
+terminal                                        </font></td></tr>
+</tbody></table>
+
+<h2><a name="RETMODE">      RETRIEVING MODE CONTROL FLAGS               
+       </a></h2>
+<table>
+<tbody><tr><th>Flag	     </th><th align="LEFT">Name		</th><th 
+align="LEFT">Initial Value</th><th align="LEFT">Condition</th></tr>
+<tr><td><kbd>^E</kbd></td><td>Form feed flag		</td><td> 0		   </td></tr>
+<tr><td><kbd>^N</kbd></td><td>End-of-file flag		</td><td> 0		   </td></tr>
+<tr><td><kbd>^X</kbd></td><td>Search Mode Flag		</td><td> 0		   </td></tr>
+<tr><td><kbd>ED</kbd></td><td>Edit level flag		</td><td> 0 [RT-11]	   </td></tr>
+<tr><td>	     </td><td>				</td><td> 0 [RSTS/E]	   </td></tr>
+<tr><td>	     </td><td>				</td><td> 1 [RSX-11]	   </td></tr>
+<tr><td><kbd>EH</kbd></td><td>Help level flag		</td><td> 2 [TECO-10]	   </td></tr>
+<tr><td>	     </td><td>				</td><td> 0 [other systems]</td></tr>
+<tr><td><kbd>EO</kbd></td><td>Version number flag	</td><td> 2 [TECO-10]	
+   </td></tr>
+<tr><td>	     </td><td>				</td><td> 5 [TECO-8]	   </td></tr>
+<tr><td>	     </td><td>				</td><td>29 [TECO-11]	   </td></tr>
+<tr><td><kbd>ES</kbd></td><td>Search verification flag	</td><td> 0		   </td></tr>
+<tr><td><kbd>ET</kbd></td><td>Terminal mode flag	</td></tr>
+<tr><td>	     </td><td>TECO-10:			</td><td> 0		   </td></tr>
+<tr><td>	     </td><td>TECO-8:			</td><td> 0		   </td><td>if SET TTY 
+NOSCOPE</td></tr>
+<tr><td>	     </td><td>				</td><td> 2		   </td><td>if SET TTY	 SCOPE</td></tr>
+<tr><td>	     </td><td>TECO-11:			</td></tr>
+<tr><th>	     </th><th align="RIGHT">Bit Value</th><th align="LEFT">Initial
+ Value</th></tr>
+<tr><td>	     </td><td align="RIGHT">   1</td><td>0</td></tr>
+<tr><td>	     </td><td align="RIGHT">   2</td><td>1</td><td>if terminal 
+is a scope                               </td></tr>
+<tr><td>	     </td><td align="RIGHT">    </td><td>0</td><td>if terminal 
+is not a scope                           </td></tr>
+<tr><td>	     </td><td align="RIGHT">   4</td><td>1</td><td>if terminal 
+has lower case input                     </td></tr>
+<tr><td>	     </td><td align="RIGHT">    </td><td>0</td><td>if terminal 
+does not have lower case input           </td></tr>
+<tr><td>	     </td><td align="RIGHT">   8</td><td>0</td></tr>
+<tr><td>	     </td><td align="RIGHT">  16</td><td>0</td></tr>
+<tr><td>	     </td><td align="RIGHT">  32</td><td>0</td></tr>
+<tr><td>	     </td><td align="RIGHT">  64</td><td>0</td></tr>
+<tr><td>	     </td><td align="RIGHT"> 128</td><td>1</td><td>before 
+TECO's prompt                                 </td></tr>
+<tr><td>	     </td><td align="RIGHT">    </td><td>0</td><td>after TECO's
+ prompt                                  </td></tr>
+<tr><td>	     </td><td align="RIGHT"> 256</td><td>0</td></tr>
+<tr><td>	     </td><td align="RIGHT"> 512</td><td>1</td><td>if terminal 
+is VT52 and VT52 support is available    </td></tr>
+<tr><td>	     </td><td align="RIGHT">    </td><td>0</td><td>if VT52 
+support is not available                     </td></tr>
+<tr><td>	     </td><td align="RIGHT">1024</td><td>1</td><td>if VT11 is 
+present and VT11 support is available     </td></tr>
+<tr><td>	     </td><td align="RIGHT">    </td><td>0</td><td>if VT11 
+support is not available                     </td></tr>
+<tr><td><kbd>EU</kbd></td><td>Upper/lower case flag	</td></tr>
+<tr><td>	     </td><td></td><td align="RIGHT">  -1</td><td>if terminal 
+supports lower case                                </td></tr>
+<tr><td>	     </td><td></td><td align="RIGHT">   0</td><td>if terminal 
+does not support lower case <a href="#NOTE22">[note 22]</a>             
+ </td></tr>
+<tr><td><kbd>EV</kbd></td><td>Edit verify flag		</td><td>0		</td></tr>
+</tbody></table>
+
+<h2><a name="SETMODE">      SETTING MODE CONTROL FLAGS                  
+       </a></h2>
+<table>
+<tbody><tr><th>Command</th><th>Bit</th><th align="RIGHT">Value</th><th>Meaning</th></tr>
+<tr><td><font color="#0000ff"><kbd>nED</kbd></font></td><td><font 
+color="#0000ff">1</font></td><td align="RIGHT"><font color="#0000ff">0</font></td><td><font
+ color="#0000ff">^ in search arguments means next character is CTRL</font></td></tr>
+<tr><td>					   </td><td>				  </td><td align="RIGHT"><font 
+color="#0000ff">1</font></td><td><font color="#0000ff">^ in search 
+arguments means ^                     </font></td></tr>
+<tr><td>					   </td><td><font color="#0000ff">2</font></td><td 
+align="RIGHT"><font color="#0000ff">0</font></td><td><font 
+color="#0000ff">disables Y or _ if data would be lost             </font></td></tr>
+<tr><td>					   </td><td>				  </td><td align="RIGHT"><font 
+color="#0000ff">1</font></td><td><font color="#0000ff">no Yank 
+protection                                </font></td></tr>
+<tr><td><kbd>nEH</kbd></td><td>1,2</td><td align="RIGHT">               
+       0</td><td>same as 2                                              
+              </td></tr>
+<tr><td>	      </td><td>   </td><td align="RIGHT">                      1</td><td>types
+ 3-letter error code only                                       </td></tr>
+<tr><td>	      </td><td>   </td><td align="RIGHT">                      2</td><td>types
+ error code and short message                                   </td></tr>
+<tr><td>	      </td><td>   </td><td align="RIGHT"><font color="#ff0000">3</font></td><td><font
+ color="#ff0000">types error code and long message</font></td></tr>
+<tr><td>	      </td><td>   </td><td align="RIGHT"><font color="#0000ff">4</font></td><td><font
+ color="#0000ff">Simulates ? after error          </font></td></tr>
+<tr><td><font color="#ff0000"><kbd>nEO</kbd></font></td><td></td><td 
+align="RIGHT"><font color="#ff0000">m*256+nES</font></td><td><font 
+color="#ff0000">Allows EO version n features to work</font></td></tr>
+<tr><td>					   </td><td></td><td align="RIGHT">                        
+   n =  0     </td><td>nothing is typed out after searches              
+             </td></tr>
+<tr><td>					   </td><td></td><td align="RIGHT">                        
+   n = -1     </td><td>an effective mV command is executed when a search
+ is completed</td></tr>
+<tr><td>					   </td><td></td><td align="RIGHT">                   1 
+&lt;= n &lt;=  31</td><td>&lt;LF&gt; represents the pointer             
+                </td></tr>
+<tr><td>					   </td><td></td><td align="RIGHT">                  32 
+&lt;= n &lt;= 126</td><td>ASCII code for character to represent the 
+pointer             </td></tr>
+<tr><td>					   </td><td></td><td align="RIGHT">                        
+   m &lt;=   0</td><td>m is treated as 1                                
+             </td><td>[TECO-10 ignores m]</td></tr>
+<tr><td><kbd>nET</kbd></td><td></td><td></td><td>Sets terminal 
+characteristics <a href="#NOTE23">[note 23]</a>    </td></tr>
+<tr><th></th><th></th><th>	    Bit Value</th><th align="LEFT">Meaning if
+ 1			       </th></tr>
+<tr><td></td><td></td><td align="RIGHT">    1</td><td>type-out is in 
+image mode                        </td></tr>
+<tr><td></td><td></td><td align="RIGHT">    2</td><td>terminal is a 
+scope                              </td></tr>
+<tr><td></td><td></td><td align="RIGHT">    4</td><td>reads lower case  
+                               </td></tr>
+<tr><td></td><td></td><td align="RIGHT">    8</td><td>^T reads with no 
+echo                            </td></tr>
+<tr><td></td><td></td><td align="RIGHT">   16</td><td>cancels &lt;^O&gt;
+ on type-out                   </td></tr>
+<tr><td></td><td></td><td align="RIGHT">   32</td><td>^T reads with no 
+wait (^T returns -1 if no input)</td></tr>
+<tr><td></td><td></td><td align="RIGHT">   64</td><td>detached flag     
+                               </td></tr>
+<tr><td></td><td></td><td align="RIGHT">  128</td><td>aborts on error   
+                               </td></tr>
+<tr><td></td><td></td><td align="RIGHT">  256</td><td>truncates output 
+to terminal width               </td></tr>
+<tr><td></td><td></td><td align="RIGHT">  512</td><td>terminal is VT52 
+and VT52 support is available   </td></tr>
+<tr><td></td><td></td><td align="RIGHT"> 1024</td><td>VT11 is present 
+and VT11 support is available    </td></tr>
+<tr><td></td><td></td><td align="RIGHT">32768</td><td>Traps &lt;^C&gt;'s
+ (Reset if &lt;^C&gt; typed)   </td></tr>
+<tr><td><kbd>nEU</kbd></td><td></td><td align="RIGHT">    0</td><td>flags
+ lower case characters</td></tr>
+<tr><td>	      </td><td></td><td align="RIGHT">&gt;0</td><td>flags upper
+ case characters</td></tr>
+<tr><td>	      </td><td></td><td align="RIGHT">&lt;0</td><td>no case 
+flagging on output <a href="#NOTE22">[note 22]</a></td></tr>
+<tr><td><font color="#0000ff"><kbd>nEV</kbd></font></td><td></td><td></td><td><font
+ color="#0000ff">Same as nES but lines to be viewed appear before TECO's
+ prompt</font></td></tr>
+<tr><td><kbd>n^X</kbd></td><td></td><td>0</td><td>either case matches in
+ searches   </td></tr>
+<tr><td>	      </td><td></td><td>1</td><td>exact case matches required	 
+   </td><td>[not in TECO-8]</td></tr>
+</tbody></table>
+
+<h2><a name="RADIX">        RADIX CONTROL</a> <a href="#NOTE13">[note 
+13]      </a></h2>
+<table>
+<tbody><tr><td><kbd>^O</kbd></td><td>Switches to octal radix <a 
+href="#NOTE24">[note 24]</a></td></tr>
+<tr><td><kbd>^D</kbd></td><td>Switches to decimal radix</td><td>[not in 
+TECO-10]</td></tr>
+</tbody></table>
+
+<h2><a name="TRACE">        TRACE CONTROL                               
+       </a></h2>
+<table>
+<tbody><tr><td><kbd>?</kbd></td><td>Enters trace mode; nullified by a 
+2nd ?</td></tr>
+</tbody></table>
+
+<h2><a name="VT52SCOPE">    VT52 SCOPE CONTROL                          
+       </a></h2>
+<table>
+<tbody><tr><td align="RIGHT"><font color="#0000ff"><kbd>-1W</kbd></font></td><td><font
+ color="#0000ff">Updates window into text buffer                </font></td></tr>
+<tr><td align="RIGHT"><font color="#0000ff"><kbd> 0W</kbd></font></td><td><font
+ color="#0000ff">Resets cursor line to default position         </font></td></tr>
+<tr><td align="RIGHT"><font color="#0000ff"><kbd> nW</kbd></font></td><td><font
+ color="#0000ff">If n&gt;0, sets cursor to line n               </font></td></tr>
+<tr><td>					   </td><td><font color="#0000ff">If n&lt;-1, "forgets" top
+ |n|-1 lines of screen</font></td></tr>
+</tbody></table>
+
+<h2><a name="OTHERSCOPE">   VR12, VT11, or VS60 SCOPE CONTROL [not in 
+TECO-10] </a></h2>
+<table>
+<tbody><tr><td align="RIGHT"><kbd> W</kbd></td><td>Updates window into 
+text buffer			  </td></tr>
+<tr><td align="RIGHT"><kbd>nW</kbd></td><td>Sets window display to n 
+lines on either side of pointer</td></tr>
+</tbody></table>
+
+<h2><a name="CASE">         CASE CONTROL                                
+       </a></h2>
+<table>
+<tbody><tr><td><font color="#ff0000"><kbd>^V</kbd></font></td><td><font 
+color="#ff0000">Enters translate to lower case mode</font></td></tr>
+<tr><td><font color="#ff0000"><kbd>^W</kbd></font></td><td><font 
+color="#ff0000">Enters translate to upper case mode</font></td></tr>
+</tbody></table>
+
+<h2><a name="MATCH">        MATCH CONTROL CONSTRUCTS                    
+       </a></h2>
+<p>(Match control constructs are valid inside search strings)</p>
+<table>
+<tbody><tr><td>		      <kbd>&lt;^X&gt;		</kbd>	     </td><td>			    
+Accepts any character					       </td></tr>
+<tr><td>		      <kbd>&lt;^S&gt;		</kbd>	     </td><td>			    Accepts any
+ non-alphanumeric separator <a href="#NOTE25">[note 25]</a>             
+        </td></tr>
+<tr><td>		      <kbd>&lt;^N&gt;		</kbd>	     </td><td>			    Accepts any
+ character except a character matched by the following character (or 
+match control construct)</td></tr>
+<tr><td>		      <kbd>&lt;^E&gt;A		</kbd>	     </td><td>			    Accepts 
+any alphabetic character (A-Z or a-z)		       </td></tr>
+<tr><td>		      <kbd>&lt;^E&gt;C		</kbd>	     </td><td>			    Accepts 
+any symbol constituent				       </td></tr>
+<tr><td>							     </td><td>			    TECO-11: A-Z,a-z,0-9,.,$					       </td></tr>
+<tr><td>		      <kbd>&lt;^E&gt;D		</kbd>	     </td><td>			    Accepts 
+any digit (0-9)					       </td><td>[not in TECO-8]</td></tr>
+<tr><td><font color="#0000ff"><kbd>&lt;^E&gt;Gq         </kbd></font></td><td><font
+ color="#0000ff">Accepts any character in Q-register q                  
+     </font></td></tr>
+<tr><td>		      <kbd>&lt;^E&gt;L		</kbd>	     </td><td>			    Accepts 
+any line terminator (&lt;LF&gt;,&lt;VT&gt;,&lt;FF&gt;)     </td><td>[not
+ in TECO-8]</td></tr>
+<tr><td><font color="#0000ff"><kbd>&lt;^E&gt;R          </kbd></font></td><td><font
+ color="#0000ff">Accepts any alphanumeric (A-Z,0-9)                     
+     </font></td></tr>
+<tr><td>		      <kbd>&lt;^E&gt;S		</kbd>	     </td><td>			    Accepts 
+any non-null string of spaces and/or tabs		       </td><td>[not in 
+TECO-8]</td></tr>
+<tr><td>		      <kbd>&lt;^E&gt;V		</kbd>	     </td><td>			    Accepts 
+any lower case alphabetic (a-z)			       </td><td>[not in TECO-8]</td></tr>
+<tr><td>		      <kbd>&lt;^E&gt;W		</kbd>	     </td><td>			    Accepts 
+any upper case alphabetic (A-Z)			       </td><td>[not in TECO-8]</td></tr>
+<tr><td><font color="#0000ff"><kbd>&lt;^E&gt;X          </kbd></font></td><td><font
+ color="#0000ff">Same as &lt;^X&gt;                                     
+     </font></td></tr>
+<tr><td><font color="#ff0000"><kbd>&lt;^E&gt;&lt;nnn&gt;</kbd></font></td><td><font
+ color="#ff0000">Accepts the character whose ASCII code (in octal) is 
+nnn    </font></td></tr>
+<tr><td><font color="#ff0000"><kbd>&lt;^E&gt;[a,b,c,...]</kbd></font></td><td><font
+ color="#ff0000">Accepts exclusive OR of the character or match control 
+constructs specified</font></td></tr>
+</tbody></table>
+
+<h2><a name="SEARCHCHAR">   SEARCH STRING BUILDING CHARACTERS           
+       </a></h2>
+<p>The following characters have special meaning when used inside a 
+search string.</p>
+<table>
+<tbody><tr><td>		      <kbd>&lt;^Q&gt;		</kbd>	     </td><td>			    Uses
+ the next character literally <a href="#NOTE26">[note 26]</a>           
+                                                              </td></tr>
+<tr><td>		      <kbd>&lt;^V&gt;		</kbd>	     </td><td>			    Converts 
+next character, if alphabetic, to lower case					      </td><td>[not in 
+TECO-8]</td></tr>
+<tr><td>		      <kbd>&lt;^W&gt;		</kbd>	     </td><td>			    Converts 
+next character, if alphabetic, to upper case					      </td><td>[not in 
+TECO-8]</td></tr>
+<tr><td><font color="#ff0000"><kbd>&lt;^^&gt;           </kbd></font></td><td><font
+ color="#ff0000">Converts next character (if it is @,[,\,],^, or _) to 
+lower case                                                   </font></td></tr>
+<tr><td><font color="#ff0000"><kbd>&lt;^R&gt;           </kbd></font></td><td><font
+ color="#ff0000">Uses the next character literally                      
+                                                            </font></td></tr>
+<tr><td><font color="#ff0000"><kbd>&lt;^V&gt;&lt;^V&gt; </kbd></font></td><td><font
+ color="#ff0000">Converts all following alphabetic characters to lower 
+case                                                         </font></td></tr>
+<tr><td><font color="#ff0000"><kbd>&lt;^W&gt;&lt;^W&gt; </kbd></font></td><td><font
+ color="#ff0000">Converts all following alphabetic characters to upper 
+case                                                         </font></td></tr>
+<tr><td><font color="#ff0000"><kbd>&lt;^T&gt;           </kbd></font></td><td><font
+ color="#ff0000">Treats all succeeding control characters except 
+&lt;^R&gt; and &lt;^T&gt; as text; nullified by a second &lt;^T&gt;</font></td></tr>
+<tr><td><font color="#ff0000"><kbd>&lt;^\&gt;           </kbd></font></td><td><font
+ color="#ff0000">Accepts either case for all succeeding alphabetic 
+characters; nullified by a second &lt;^\&gt;                     </font></td></tr>
+<tr><td><font color="#0000ff"><kbd>^                    </kbd></font></td><td><font
+ color="#0000ff">If ED&amp;1=0, converts the following alphabetic 
+character to the corresponding control character                  </font></td></tr>
+<tr><td><font color="#0000ff"><kbd>&lt;^E&gt;Qq         </kbd></font></td><td><font
+ color="#0000ff">Uses the string stored in Q-register q at this position
+                                                            </font></td></tr>
+<tr><td><font color="#0000ff"><kbd>&lt;^E&gt;Q*         </kbd></font></td><td><font
+ color="#0000ff">Uses the string stored in the filespec buffer at this 
+position                                                     </font></td></tr>
+<tr><td><font color="#0000ff"><kbd>&lt;^E&gt;Q_         </kbd></font></td><td><font
+ color="#0000ff">Uses the string stored in the search string buffer at 
+this position                                                </font></td></tr>
+</tbody></table>
+
+<h2><a name="INSERTCHAR">   INSERT STRING BUILDING CHARACTERS           
+       </a></h2>
+<p>The following characters have special meaning when used inside insert
+ strings on TECO-10. They have the same meaning that they have when used
+ inside search strings.</p>
+<table>
+<tbody><tr><td><kbd>&lt;^V&gt;&lt;^V&gt;</kbd></td><td> </td><td><kbd>&lt;^V&gt;</kbd></td></tr>
+<tr><td><kbd>&lt;^W&gt;&lt;^W&gt;</kbd></td><td> </td><td><kbd>&lt;^W&gt;</kbd></td></tr>
+<tr><td><kbd>&lt;^R&gt; 	 </kbd></td><td> </td><td><kbd>&lt;^^&gt;</kbd></td></tr>
+<tr><td><kbd>&lt;^T&gt; 	 </kbd></td>					    </tr>
+</tbody></table>
+
+<h2><a name="ERRORS">       ERROR MESSAGES                              
+       </a></h2>
+<table>
+<tbody><tr><th>     Code      </th><th align="LEFT">Explanation						   
+   </th></tr>
+<tr><td><kbd>?ARG</kbd></td><td>Improper arguments						      </td></tr>
+<tr><td><kbd>?BAK</kbd></td><td>Cannot delete old backup file					      </td></tr>
+<tr><td><kbd>?BNI</kbd></td><td>&gt; not in an iteration					      </td></tr>
+<tr><td><kbd>?COR</kbd></td><td>Same as ?MEM							      </td></tr>
+<tr><td><kbd>?CCL</kbd></td><td>CCL not found or EG argument too big				
+      </td></tr>
+<tr><td><kbd>?COS</kbd></td><td>Contradictory output switches					      </td></tr>
+<tr><td><kbd>?CPO</kbd></td><td>Cannot pop Q-register						      </td></tr>
+<tr><td><kbd>?DEV</kbd></td><td>Invalid device							      </td></tr>
+<tr><td><kbd>?DIO</kbd></td><td>Directory I/O error						      </td></tr>
+<tr><td><kbd>?DTB</kbd></td><td>Delete too big							      </td></tr>
+<tr><td><kbd>?EBD</kbd></td><td>Bad EB device							      </td></tr>
+<tr><td><kbd>?EBF</kbd></td><td>Bad EB filename 						      </td></tr>
+<tr><td><kbd>?EBO</kbd></td><td>Same as ?OFO							      </td></tr>
+<tr><td><kbd>?EBP</kbd></td><td>EB illegal because of protection				    
+  </td></tr>
+<tr><td><kbd>?EEE</kbd></td><td>Unable to read error message file				   
+   </td></tr>
+<tr><td><kbd>?EMA</kbd></td><td>EM with illegal argument					      </td></tr>
+<tr><td><kbd>?EMD</kbd></td><td>EM with no input device open					      </td></tr>
+<tr><td><kbd>?ENT</kbd></td><td>Enter error							      </td></tr>
+<tr><td><kbd>?EOA</kbd></td><td>Bad argument to ED						      </td></tr>
+<tr><td><kbd>?ERR</kbd></td><td>RSTS/E monitor call failed					      </td></tr>
+<tr><td><kbd>?FER</kbd></td><td>File error							      </td></tr>
+<tr><td><kbd>?FNF</kbd></td><td>File not found							      </td></tr>
+<tr><td><kbd>?FUL</kbd></td><td>Output command would have overflowed 
+device (In TECO-10, same as ?NRO)</td></tr>
+<tr><td><kbd>?IAB</kbd></td><td>Invalid nesting of &lt;...&gt; or (...) 
+			      </td></tr>
+<tr><td><kbd>?ICE</kbd></td><td>Illegal CTRL/E command in search 
+argument			      </td></tr>
+<tr><td><kbd>?ICT</kbd></td><td>Illegal control character in text 
+argument			      </td></tr>
+<tr><td><kbd>?IDV</kbd></td><td>Bad input device						      </td></tr>
+<tr><td><kbd>?IEC</kbd></td><td>Illegal character after E					      </td></tr>
+<tr><td><kbd>?IEM</kbd></td><td>Re-init failure after EM					      </td></tr>
+<tr><td><kbd>?IFC</kbd></td><td>Illegal character after F					      </td></tr>
+<tr><td><kbd>?IFN</kbd></td><td>Bad filename							      </td></tr>
+<tr><td><kbd>?IIA</kbd></td><td>Illegal insert argument 					      </td></tr>
+<tr><td><kbd>?ILL</kbd></td><td>IIlegal command 						      </td></tr>
+<tr><td><kbd>?ILN</kbd></td><td>Same as ?OCT							      </td></tr>
+<tr><td><kbd>?ILR</kbd></td><td>Cannot lookup input file to rename it			
+	      </td></tr>
+<tr><td><kbd>?INP</kbd></td><td>Input error							      </td></tr>
+<tr><td><kbd>?IOS</kbd></td><td>Illegal character in I/O switch 				    
+  </td></tr>
+<tr><td><kbd>?IQC</kbd></td><td>Illegal character after "               
+                              </td></tr>
+<tr><td><kbd>?IQN</kbd></td><td>Illegal Q-register name 					      </td></tr>
+<tr><td><kbd>?IRB</kbd></td><td>Cannot rename input filename					      </td></tr>
+<tr><td><kbd>?IRN</kbd></td><td>Failure in rename process					      </td></tr>
+<tr><td><kbd>?ISA</kbd></td><td>IIlegal search argument 					      </td></tr>
+<tr><td><kbd>?ISS</kbd></td><td>Illegal search string						      </td></tr>
+<tr><td><kbd>?MAP</kbd></td><td>Missing '                               
+                              </td></tr>
+<tr><td><kbd>?MEE</kbd></td><td>Macro ending with E						      </td></tr>
+<tr><td><kbd>?MEF</kbd></td><td>Macro ending with F						      </td></tr>
+<tr><td><kbd>?MEM</kbd></td><td>Storage capacity exceeded					      </td></tr>
+<tr><td><kbd>?MEO</kbd></td><td>Macro ending with O						      </td></tr>
+<tr><td><kbd>?MEQ</kbd></td><td>Macro ending with "                     
+                              </td></tr>
+<tr><td><kbd>?MEU</kbd></td><td>Macro ending with U						      </td></tr>
+<tr><td><kbd>?MFN</kbd></td><td>Missing filename						      </td></tr>
+<tr><td><kbd>?MIQ</kbd></td><td>Missing Q-register name 					      </td></tr>
+<tr><td><kbd>?MLA</kbd></td><td>Same as ?BNI							      </td></tr>
+<tr><td><kbd>?MLP</kbd></td><td>Missing (							      </td></tr>
+<tr><td><kbd>?MRA</kbd></td><td>Missing &gt;							      </td></tr>
+<tr><td><kbd>?MRP</kbd></td><td>Missing )							      </td></tr>
+<tr><td><kbd>?MUU</kbd></td><td>Macro ending with ^^						      </td></tr>
+<tr><td><kbd>?NAB</kbd></td><td>No argument before ^_						      </td></tr>
+<tr><td><kbd>?NAC</kbd></td><td>TECO-11: No argument before ,					      </td></tr>
+<tr><td>	       </td><td>TECO-8: Negative argument to ,					      </td></tr>
+<tr><td><kbd>?NAE</kbd></td><td>No argument before =						      </td></tr>
+<tr><td><kbd>?NAI</kbd></td><td>No altmode after nI						      </td></tr>
+<tr><td><kbd>?NAP</kbd></td><td>TECO-11: Same as ?MLP						      </td></tr>
+<tr><td>	       </td><td>TECO-8: Negative or 0 argument to P				      </td></tr>
+<tr><td><kbd>?NAQ</kbd></td><td>No argument before "                    
+                              </td></tr>
+<tr><td><kbd>?NAG</kbd></td><td>TECO-11: No argument before ;					      </td></tr>
+<tr><td>	       </td><td>TECO-8: Negative or 0 argument to search			    
+  </td></tr>
+<tr><td><kbd>?NAU</kbd></td><td>No argument before U						      </td></tr>
+<tr><td><kbd>?NAY</kbd></td><td>Numeric argument with Y 					      </td></tr>
+<tr><td><kbd>?NCS</kbd></td><td>No command string seen prior to *q				  
+    </td></tr>
+<tr><td><kbd>?NFI</kbd></td><td>No file for input						      </td></tr>
+<tr><td><kbd>?NFO</kbd></td><td>No file for output						      </td></tr>
+<tr><td><kbd>?NNQ</kbd></td><td>No number in Q-register 					      </td></tr>
+<tr><td><kbd>?NRO</kbd></td><td>No room for output						      </td></tr>
+<tr><td><kbd>?NTQ</kbd></td><td>No text in Q-register						      </td></tr>
+<tr><td><kbd>?NYI</kbd></td><td>Command not yet implemented					      </td></tr>
+<tr><td><kbd>?OCT</kbd></td><td>8 or 9 in octal digit string					      </td></tr>
+<tr><td><kbd>?ODV</kbd></td><td>Output device not available					      </td></tr>
+<tr><td><kbd>?OFO</kbd></td><td>Output file already open					      </td></tr>
+<tr><td><kbd>?OLR</kbd></td><td>Cannot lookup output file to rename it		
+		      </td></tr>
+<tr><td><kbd>?OUT</kbd></td><td>Output error							      </td></tr>
+<tr><td><kbd>?PAR</kbd></td><td>Confused use of parentheses					      </td></tr>
+<tr><td><kbd>?PDO</kbd></td><td>Push-down list overflow 					      </td></tr>
+<tr><td><kbd>?POP</kbd></td><td>Attempt to move pointer off page				    
+  </td></tr>
+<tr><td><kbd>?PPN</kbd></td><td>Illegal PPN							      </td></tr>
+<tr><td><kbd>?QMO</kbd></td><td>Q-register memory overflow					      </td></tr>
+<tr><td><kbd>?RNQ</kbd></td><td>Cannot rename output file					      </td></tr>
+<tr><td><kbd>?SAL</kbd></td><td>Second argument less than first 				    
+  </td></tr>
+<tr><td><kbd>?SNA</kbd></td><td>Initial search with no argument 				    
+  </td></tr>
+<tr><td><kbd>?SNI</kbd></td><td>; not in an iteration						      </td></tr>
+<tr><td><kbd>?SRH</kbd></td><td>Search failure							      </td></tr>
+<tr><td><kbd>?STC</kbd></td><td>Search string has too many characters			
+	      </td></tr>
+<tr><td><kbd>?STL</kbd></td><td>Search string too long						      </td></tr>
+<tr><td><kbd>?TAG</kbd></td><td>Missing tag							      </td></tr>
+<tr><td><kbd>?TAL</kbd></td><td>Two arguments with L						      </td></tr>
+<tr><td><kbd>?TTL</kbd></td><td>Tag too long							      </td></tr>
+<tr><td><kbd>?TTY</kbd></td><td>Illegal TTY device						      </td></tr>
+<tr><td><kbd>?UCA</kbd></td><td>Unterminated ^A command 					      </td></tr>
+<tr><td><kbd>?UEA</kbd></td><td>Unimplemented EA						      </td></tr>
+<tr><td><kbd>?UEI</kbd></td><td>Unimplemented EI						      </td></tr>
+<tr><td><kbd>?UEN</kbd></td><td>Unimplemented EN						      </td></tr>
+<tr><td><kbd>?UEP</kbd></td><td>Unimplemented EP						      </td></tr>
+<tr><td><kbd>?UFS</kbd></td><td>Macro ending with unterminated file 
+select			      </td></tr>
+<tr><td><kbd>?UIN</kbd></td><td>Unterminated insert command					      </td></tr>
+<tr><td><kbd>?UIG</kbd></td><td>Undefined I/O switch						      </td></tr>
+<tr><td><kbd>?USR</kbd></td><td>Unterminated search command					      </td></tr>
+<tr><td><kbd>?UTC</kbd></td><td>Unterminated command						      </td></tr>
+<tr><td><kbd>?UTG</kbd></td><td>Unterminated tag						      </td></tr>
+<tr><td><kbd>?UTM</kbd></td><td>Unterminated macro						      </td></tr>
+<tr><td><kbd>?UUO</kbd></td><td>Illegal UUO							      </td></tr>
+<tr><td><kbd>?WLO</kbd></td><td>System device is write looked					      </td></tr>
+<tr><td><kbd>?XAB</kbd></td><td>Execution aborted by ^C 					      </td></tr>
+<tr><td><kbd>?YCA</kbd></td><td>Y command aborted						      </td></tr>
+<tr><td><kbd>?nnn</kbd></td><td>RSX-11 monitor call failed					      </td></tr>
+</tbody></table>
+
+<h2><a name="ASCII">        OCTAL AND DECIMAL ASCII CODES               
+       </a></h2>
+<table>
+<tbody><tr><td width="25%">
+
+<table>
+<tbody><tr><th>     chr	</th><th>OCT</th><th>DEC</th></tr>
+<tr><td><kbd>nul  </kbd></td><td>000</td><td>000</td></tr>
+<tr><td><kbd>^A   </kbd></td><td>001</td><td>001</td></tr>
+<tr><td><kbd>^B   </kbd></td><td>002</td><td>002</td></tr>
+<tr><td><kbd>^C   </kbd></td><td>003</td><td>003</td></tr>
+<tr><td><kbd>^D   </kbd></td><td>004</td><td>004</td></tr>
+<tr><td><kbd>^E   </kbd></td><td>005</td><td>005</td></tr>
+<tr><td><kbd>^F   </kbd></td><td>006</td><td>006</td></tr>
+<tr><td><kbd>^G   </kbd></td><td>007</td><td>007</td></tr>
+<tr><td><kbd>^H   </kbd></td><td>010</td><td>008</td></tr>
+<tr><td><kbd>tab  </kbd></td><td>011</td><td>009</td></tr>
+<tr><td><kbd>lf   </kbd></td><td>012</td><td>010</td></tr>
+<tr><td><kbd>vt   </kbd></td><td>013</td><td>Oil</td></tr>
+<tr><td><kbd>ff   </kbd></td><td>014</td><td>012</td></tr>
+<tr><td><kbd>cr   </kbd></td><td>015</td><td>013</td></tr>
+<tr><td><kbd>^N   </kbd></td><td>016</td><td>014</td></tr>
+<tr><td><kbd>^O   </kbd></td><td>017</td><td>015</td></tr>
+<tr><td><kbd>^P   </kbd></td><td>020</td><td>016</td></tr>
+<tr><td><kbd>^O   </kbd></td><td>021</td><td>017</td></tr>
+<tr><td><kbd>^R   </kbd></td><td>022</td><td>018</td></tr>
+<tr><td><kbd>^S   </kbd></td><td>023</td><td>019</td></tr>
+<tr><td><kbd>^T   </kbd></td><td>024</td><td>020</td></tr>
+<tr><td><kbd>^U   </kbd></td><td>025</td><td>021</td></tr>
+<tr><td><kbd>^V   </kbd></td><td>026</td><td>022</td></tr>
+<tr><td><kbd>^W   </kbd></td><td>027</td><td>023</td></tr>
+<tr><td><kbd>^X   </kbd></td><td>030</td><td>024</td></tr>
+<tr><td><kbd>^Y   </kbd></td><td>031</td><td>025</td></tr>
+<tr><td><kbd>^Z   </kbd></td><td>032</td><td>026</td></tr>
+<tr><td><kbd>esc  </kbd></td><td>033</td><td>027</td></tr>
+<tr><td><kbd>fs   </kbd></td><td>034</td><td>028</td></tr>
+<tr><td><kbd>gs   </kbd></td><td>035</td><td>029</td></tr>
+<tr><td><kbd>rs   </kbd></td><td>036</td><td>030</td></tr>
+<tr><td><kbd>us   </kbd></td><td>037</td><td>031</td></tr>
+</tbody></table>
+
+</td><td width="25%">
+
+<table>
+<tbody><tr><th>    chr 	</th><th>OCT</th><th>DEC</th></tr>
+<tr><td><kbd>sp   </kbd></td><td>040</td><td>032</td></tr>
+<tr><td><kbd>!	  </kbd></td><td>041</td><td>033</td></tr>
+<tr><td><kbd>"    </kbd></td><td>042</td><td>034</td></tr>
+<tr><td><kbd>#	  </kbd></td><td>043</td><td>035</td></tr>
+<tr><td><kbd>$	  </kbd></td><td>044</td><td>036</td></tr>
+<tr><td><kbd>%	  </kbd></td><td>045</td><td>037</td></tr>
+<tr><td><kbd>&amp;</kbd></td><td>046</td><td>038</td></tr>
+<tr><td><kbd>'    </kbd></td><td>047</td><td>039</td></tr>
+<tr><td><kbd>(	  </kbd></td><td>050</td><td>040</td></tr>
+<tr><td><kbd>)	  </kbd></td><td>051</td><td>041</td></tr>
+<tr><td><kbd>*	  </kbd></td><td>052</td><td>042</td></tr>
+<tr><td><kbd>+	  </kbd></td><td>053</td><td>043</td></tr>
+<tr><td><kbd>,	  </kbd></td><td>054</td><td>044</td></tr>
+<tr><td><kbd>-	  </kbd></td><td>055</td><td>045</td></tr>
+<tr><td><kbd>.	  </kbd></td><td>056</td><td>046</td></tr>
+<tr><td><kbd>/	  </kbd></td><td>057</td><td>047</td></tr>
+<tr><td><kbd>0	  </kbd></td><td>060</td><td>048</td></tr>
+<tr><td><kbd>1	  </kbd></td><td>061</td><td>049</td></tr>
+<tr><td><kbd>2	  </kbd></td><td>062</td><td>050</td></tr>
+<tr><td><kbd>3	  </kbd></td><td>063</td><td>051</td></tr>
+<tr><td><kbd>4	  </kbd></td><td>064</td><td>052</td></tr>
+<tr><td><kbd>5	  </kbd></td><td>065</td><td>053</td></tr>
+<tr><td><kbd>6	  </kbd></td><td>066</td><td>054</td></tr>
+<tr><td><kbd>7	  </kbd></td><td>067</td><td>055</td></tr>
+<tr><td><kbd>8	  </kbd></td><td>070</td><td>056</td></tr>
+<tr><td><kbd>9	  </kbd></td><td>071</td><td>057</td></tr>
+<tr><td><kbd>:	  </kbd></td><td>072</td><td>058</td></tr>
+<tr><td><kbd>;	  </kbd></td><td>073</td><td>059</td></tr>
+<tr><td><kbd>&lt; </kbd></td><td>074</td><td>060</td></tr>
+<tr><td><kbd>=	  </kbd></td><td>075</td><td>061</td></tr>
+<tr><td><kbd>&gt; </kbd></td><td>076</td><td>062</td></tr>
+<tr><td><kbd>?	  </kbd></td><td>077</td><td>063</td></tr>
+</tbody></table>
+
+</td><td width="25%">
+
+<table>
+<tbody><tr><th>    chr 	</th><th>OCT</th><th>DEC</th></tr>
+<tr><td><kbd>@	  </kbd></td><td>100</td><td>064</td></tr>
+<tr><td><kbd>A	  </kbd></td><td>101</td><td>065</td></tr>
+<tr><td><kbd>B	  </kbd></td><td>102</td><td>066</td></tr>
+<tr><td><kbd>C	  </kbd></td><td>103</td><td>067</td></tr>
+<tr><td><kbd>D	  </kbd></td><td>104</td><td>068</td></tr>
+<tr><td><kbd>E	  </kbd></td><td>105</td><td>069</td></tr>
+<tr><td><kbd>F	  </kbd></td><td>106</td><td>070</td></tr>
+<tr><td><kbd>G	  </kbd></td><td>107</td><td>071</td></tr>
+<tr><td><kbd>H	  </kbd></td><td>110</td><td>072</td></tr>
+<tr><td><kbd>I	  </kbd></td><td>111</td><td>073</td></tr>
+<tr><td><kbd>I	  </kbd></td><td>112</td><td>074</td></tr>
+<tr><td><kbd>K	  </kbd></td><td>113</td><td>075</td></tr>
+<tr><td><kbd>L	  </kbd></td><td>114</td><td>076</td></tr>
+<tr><td><kbd>M	  </kbd></td><td>115</td><td>077</td></tr>
+<tr><td><kbd>N	  </kbd></td><td>116</td><td>078</td></tr>
+<tr><td><kbd>0	  </kbd></td><td>117</td><td>079</td></tr>
+<tr><td><kbd>P	  </kbd></td><td>120</td><td>080</td></tr>
+<tr><td><kbd>Q	  </kbd></td><td>121</td><td>081</td></tr>
+<tr><td><kbd>R	  </kbd></td><td>122</td><td>082</td></tr>
+<tr><td><kbd>S	  </kbd></td><td>123</td><td>083</td></tr>
+<tr><td><kbd>T	  </kbd></td><td>124</td><td>084</td></tr>
+<tr><td><kbd>U	  </kbd></td><td>125</td><td>085</td></tr>
+<tr><td><kbd>V	  </kbd></td><td>126</td><td>086</td></tr>
+<tr><td><kbd>W	  </kbd></td><td>127</td><td>087</td></tr>
+<tr><td><kbd>X	  </kbd></td><td>130</td><td>088</td></tr>
+<tr><td><kbd>Y	  </kbd></td><td>131</td><td>089</td></tr>
+<tr><td><kbd>Z	  </kbd></td><td>132</td><td>090</td></tr>
+<tr><td><kbd>[	  </kbd></td><td>133</td><td>091</td></tr>
+<tr><td><kbd>\	  </kbd></td><td>134</td><td>092</td></tr>
+<tr><td><kbd>]	  </kbd></td><td>135</td><td>093</td></tr>
+<tr><td><kbd>^	  </kbd></td><td>136</td><td>094</td></tr>
+<tr><td><kbd>_	  </kbd></td><td>137</td><td>095</td></tr>
+</tbody></table>
+
+</td><td width="25%">
+
+<table>
+<tbody><tr><th>    chr 	</th><th>OCT</th><th>DEC</th></tr>
+<tr><td><kbd>`	  </kbd></td><td>140</td><td>096</td></tr>
+<tr><td><kbd>a	  </kbd></td><td>141</td><td>097</td></tr>
+<tr><td><kbd>b	  </kbd></td><td>142</td><td>098</td></tr>
+<tr><td><kbd>c	  </kbd></td><td>143</td><td>099</td></tr>
+<tr><td><kbd>d	  </kbd></td><td>144</td><td>100</td></tr>
+<tr><td><kbd>e	  </kbd></td><td>145</td><td>101</td></tr>
+<tr><td><kbd>f	  </kbd></td><td>146</td><td>102</td></tr>
+<tr><td><kbd>g	  </kbd></td><td>147</td><td>103</td></tr>
+<tr><td><kbd>h	  </kbd></td><td>150</td><td>104</td></tr>
+<tr><td><kbd>i	  </kbd></td><td>151</td><td>105</td></tr>
+<tr><td><kbd>j	  </kbd></td><td>152</td><td>106</td></tr>
+<tr><td><kbd>k	  </kbd></td><td>153</td><td>107</td></tr>
+<tr><td><kbd>l	  </kbd></td><td>154</td><td>108</td></tr>
+<tr><td><kbd>m	  </kbd></td><td>155</td><td>109</td></tr>
+<tr><td><kbd>n	  </kbd></td><td>156</td><td>110</td></tr>
+<tr><td><kbd>o	  </kbd></td><td>157</td><td>111</td></tr>
+<tr><td><kbd>p	  </kbd></td><td>160</td><td>112</td></tr>
+<tr><td><kbd>q	  </kbd></td><td>161</td><td>113</td></tr>
+<tr><td><kbd>r	  </kbd></td><td>162</td><td>114</td></tr>
+<tr><td><kbd>s	  </kbd></td><td>163</td><td>115</td></tr>
+<tr><td><kbd>t	  </kbd></td><td>164</td><td>116</td></tr>
+<tr><td><kbd>u	  </kbd></td><td>165</td><td>117</td></tr>
+<tr><td><kbd>v	  </kbd></td><td>166</td><td>118</td></tr>
+<tr><td><kbd>w	  </kbd></td><td>167</td><td>119</td></tr>
+<tr><td><kbd>x	  </kbd></td><td>170</td><td>120</td></tr>
+<tr><td><kbd>y	  </kbd></td><td>171</td><td>121</td></tr>
+<tr><td><kbd>z	  </kbd></td><td>172</td><td>122</td></tr>
+<tr><td><kbd>{	  </kbd></td><td>173</td><td>123</td></tr>
+<tr><td><kbd>|	  </kbd></td><td>174</td><td>124</td></tr>
+<tr><td><kbd>}	  </kbd></td><td>175</td><td>125</td></tr>
+<tr><td><kbd>~	  </kbd></td><td>176</td><td>126</td></tr>
+<tr><td><kbd>del  </kbd></td><td>177</td><td>127</td></tr>
+</tbody></table>
+
+</td></tr>
+</tbody></table>
+
+<h2><a name="NOTES">        NOTES                                       
+       </a></h2>
+<table>
+<tbody><tr><td><a name="NOTE01"> [1]</a></td><td>Re-executes last TECO 
+command. Ignores filespec2, if present on previous command</td></tr>
+<tr><td><a name="NOTE02"> [2]</a></td><td>/TECO switch not necessary if 
+SET EDITOR TECO command has been previously specified</td></tr>
+<tr><td><a name="NOTE03"> [3]</a></td><td>SFD's allowed in TOPS-10</td></tr>
+<tr><td><a name="NOTE04"> [4]</a></td><td>Re-executes last MAKE command</td></tr>
+<tr><td><a name="NOTE05"> [5]</a></td><td>TECO under RSTS/E and OS/8 
+requires two &lt;^C&gt;s. &lt;^C&gt; is not an immediate mode command in
+ RT-11 and RSX-11</td></tr>
+<tr><td><a name="NOTE06"> [6]</a></td><td>TECO-10 types the last 10 
+characters of the command string before the error occurred</td></tr>
+<tr><td><a name="NOTE07"> [7]</a></td><td>Not an immediate mode command 
+in TECO-10 (execution is deferred until next wake-up character). In 
+TECO-8, the immediate mode command &lt;^Z&gt; is the same as *Z</td></tr>
+<tr><td><a name="NOTE08"> [8]</a></td><td>Two &lt;^C&gt;s may be 
+necessary on systems that support type-ahead</td></tr>
+<tr><td><a name="NOTE09"> [9]</a></td><td>Only if feature is enabled in 
+the operating system</td></tr>
+<tr><td><a name="NOTE10">[10]</a></td><td>TECO-10 closes any previous 
+file.</td></tr>
+<tr><td><a name="NOTE11">[11]</a></td><td>Not in RSTS. TECO-10 does not 
+require $</td></tr>
+<tr><td><a name="NOTE12">[12]</a></td><td>On TECO-11, ^C in a macro 
+returns control to TECO's prompt</td></tr>
+<tr><td><a name="NOTE13">[13]</a></td><td>TECO-10 has no general octal 
+radix mode</td></tr>
+<tr><td><a name="NOTE14">[14]</a></td><td>In TECO-10, a space between 
+two numbers also acts as an addition</td></tr>
+<tr><td><a name="NOTE15">[15]</a></td><td>TECO-10 prints signed result; 
+TECO-8 and TECO-11 print unsigned result</td></tr>
+<tr><td><a name="NOTE16">[16]</a></td><td>On TECO-10, nA is the same as 
+0A</td></tr>
+<tr><td><a name="NOTE17">[17]</a></td><td>Must immediately follow search
+ in TECO-11</td></tr>
+<tr><td><a name="NOTE18">[18]</a></td><td>Cannot jump to before start of
+ current iteration in TECO-8 or TECO-11</td></tr>
+<tr><td><a name="NOTE19">[19]</a></td><td>TECO-10 stores either text or 
+numeric data (but not both simultaneously) in a single area within the 
+Q-register</td></tr>
+<tr><td><a name="NOTE20">[20]</a></td><td>Same as 1%q in TECO-10</td></tr>
+<tr><td><a name="NOTE21">[21]</a></td><td>Arguments "pass through" this 
+command in TECO-11</td></tr>
+<tr><td><a name="NOTE22">[22]</a></td><td>On TECO-10, no case flagging 
+occurs if the terminal supports lower case, regardless of state of EU 
+flag</td></tr>
+<tr><td><a name="NOTE23">[23]</a></td><td>TECO-10 uses only bit value 1,
+ TECO-8 uses only bit values 1, 2, and 8</td></tr>
+<tr><td><a name="NOTE24">[24]</a></td><td>In TECO-10, ^O must be 
+followed by a digit string and the octal radix mode applies only to this
+ string</td></tr>
+<tr><td><a name="NOTE25">[25]</a></td><td>TECO-10 allows begin of 
+buffer,.,$, and % to match</td></tr>
+<tr><td><a name="NOTE26">[26]</a></td><td>Cannot quote $ on TECO-10</td></tr>
+</tbody></table>
+
+<h2><a name="NOVICE">       NOVICE SUBSET OF TECO                       
+       </a></h2>
+<p>These commands allow you to do most common editing jobs on all 
+versions of TECO.</p>
+<table>
+<tbody><tr><td><kbd>MAKE file	   </kbd></td><td>Creates a new file 
+(under RT-11, use CREATE command)</td></tr>
+<tr><td><kbd>TECO file	   </kbd></td><td>Edits an existing file (under 
+RT-11, use EDIT command)</td></tr>
+<tr><td><kbd>J		   </kbd></td><td>Moves pointer to beginning of buffer</td></tr>
+<tr><td><kbd>ZJ 	   </kbd></td><td>Moves pointer to end of buffer</td></tr>
+<tr><td><kbd>L		   </kbd></td><td>Advances pointer to beginning of next 
+line</td></tr>
+<tr><td><kbd>nL 	   </kbd></td><td>Advances pointer n lines</td></tr>
+<tr><td><kbd>-nL	   </kbd></td><td>Moves pointer back n lines</td></tr>
+<tr><td><kbd>0L 	   </kbd></td><td>Moves pointer to beginning of current
+ line</td></tr>
+<tr><td><kbd>C		   </kbd></td><td>Advances pointer across one character</td></tr>
+<tr><td><kbd>nC 	   </kbd></td><td>Advances pointer across n characters</td></tr>
+<tr><td><kbd>-nC	   </kbd></td><td>Moves pointer backwards across n 
+characters</td></tr>
+<tr><td><kbd>T		   </kbd></td><td>Types text from current pointer 
+position to end of current line</td></tr>
+<tr><td><kbd>nT 	   </kbd></td><td>Types n lines on terminal</td></tr>
+<tr><td><kbd>HT 	   </kbd></td><td>Types entire content of text buffer</td></tr>
+<tr><td><kbd>0TT	   </kbd></td><td>Types current line</td></tr>
+<tr><td><kbd>Itext$	   </kbd></td><td>Inserts text before current 
+pointer position</td></tr>
+<tr><td><kbd>K		   </kbd></td><td>Deletes text from current pointer 
+position to end of line</td></tr>
+<tr><td><kbd>nK 	   </kbd></td><td>Deletes n lines of text</td></tr>
+<tr><td><kbd>HK 	   </kbd></td><td>Deletes entire content of text buffer</td></tr>
+<tr><td><kbd>D		   </kbd></td><td>Deletes the character following the 
+pointer</td></tr>
+<tr><td><kbd>nD 	   </kbd></td><td>Deletes n characters after the 
+pointer</td></tr>
+<tr><td><kbd>-nD	   </kbd></td><td>Deletes n characters before the 
+pointer</td></tr>
+<tr><td><kbd>P		   </kbd></td><td>Outputs the current page and reads in 
+the next page</td></tr>
+<tr><td><kbd>nP 	   </kbd></td><td>Executes the P command n times</td></tr>
+<tr><td><kbd>A		   </kbd></td><td>Append the next input page to the end 
+of the buffer</td></tr>
+<tr><td><kbd>EX 	   </kbd></td><td>Moves the remainder of the input file
+ to the output file, closes the output file, and exits from TECO</td></tr>
+<tr><td><kbd>Stext$	   </kbd></td><td>Beginning at the current pointer 
+position, searches for the specified text on the current page. The 
+buffer pointer is positioned after the specified text if it is found. If
+ the text is not found, an error message is given and the buffer pointer
+ is left at the beginning of the page</td></tr>
+<tr><td><kbd>Ntext$	   </kbd></td><td>Same as Stext$ except that the 
+search continues across page boundaries, if necessary, until the string 
+or the end of the input file is encountered</td></tr>
+<tr><td><kbd>FStext1$text2$</kbd></td><td>Searches for text1 and, if 
+found, replaces it with text2</td></tr>
+</tbody></table>
+
+</body></html>
