@@ -57,56 +57,111 @@
 #  Move n characters left or right from current position 
 #  Use f.seek(n, 1) where 1 denotes "measure from current position" 
 
-import string, linecache, os, fileinput    
-from yeanpypa import *   
-  
-#  Teco commands. We put these in a grammar using yeanpypa. 
-dbl_escape = Word( Literal('$') + Literal('$') )
+import string, linecache, fileinput  
 
-escape = Literal('$') 
-
-file = Literal('a') | Literal('b') | Literal('c') | Literal('d') \
-       | Literal('e') | Literal('f') | Literal('g') | Literal('h') 
-       
-rank = Literal('1') | Literal('2') | Literal('3') | Literal('4') \
-       | Literal('5') | Literal('6') | Literal('7') | Literal('8')         
-
-square = Word( file + rank ) 
-
-
-# dbl_escape = Word(escape + escape) 
-
-#dbl_escape = Word( escape + escape )
-
-#string = Literal('"') + alpha + Word(alpha | digit) + Literal('"') 
-
-#operator =  Literal("=") | Literal("<") | Literal(">")  
-
-stmt = escape | dbl_escape | file | rank | square 
-
-# | string | operator 
-
-grammar = stmt 
-
-
-#  A function to parse input
-def parseit(grammar, input):
-
-    result = parse(grammar, input)
-
-    if result.full(): 
-       print "Success!" 
-    else: 
-       print "Fail"  
-
-
-#  Parse a few moves
-#parseit(grammar, "test")
-#parseit(grammar, ">")
-#parseit(grammar, "=")
-parseit(grammar, "$") 
-parseit(grammar, "$$")
-parseit(grammar, "e4")
-
-
-
+ 
+class edit(object):
+   def __init__(self):
+      self.numlines = 0
+      self.buf = ""
+      # The position of the pointer is made up of the row, and the
+      # position on the row.
+      self.pos = [0, 0]
+      self.linenum = self.pos[0]
+      self.colnum = self.pos[1]
+                       
+   # Opon a file
+   def open(self, fname):
+      self.myfile = open(fname, 'r+').read().splitlines()
+      #The number of lines in the file
+      self.numlines = len(self.myfile) 
+      
+   # Close the file
+   def close(self):
+      self.outfile.close()
+      
+   # Save the file
+   def save(self):
+      self.outfile = open('outfile.txt', 'w') 
+      self.outfile.writelines(self.myfile) 
+      
+   # Show the current position of the pointer.
+   def tell(self):
+      return self.pos
+      
+   # Move up or down by "x" lines
+   def lmove(self, x):
+      self.pos[0] += x
+      self.linenum += x
+      
+   # Move within a line by "x" bytes.
+   def move(self, x):
+      if 0 <= (self.colnum + x) <= len(self.myfile[self.linenum]):
+         self.pos[1] += x
+         self.colnum += x
+      else:
+         pass
+          
+   # Get some data
+   def get(self, num):
+      self.buf = self.myfile[self.linenum][self.colnum: self.colnum + num]
+      return self.buf
+      
+   # Delete "x" characters at the current position.
+   # Because Python strings can't be changed, we create a new string
+   # and make that the new version of the line.
+   def delete(self, x):
+      # This is the content of the part of the line BEFORE the pointer.
+      starttext = self.myfile[self.linenum][0:self.colnum]
+      endtext = self.myfile[self.linenum][self.colnum+x:len(self.myfile[self.linenum])]
+      # Create the new version of the line, with the text inserted into it.
+      self.myfile[self.linenum] = starttext + endtext
+            
+   # Write the string str. Because Python strings can't be changed, we
+   # create a new string and make that the new version of the line.
+   def insert(self, str):
+      # This is the content of the part of the line BEFORE the pointer.
+      starttext = self.myfile[self.linenum][0:self.colnum]
+      endtext = self.myfile[self.linenum][self.colnum:len(self.myfile[self.linenum])]
+      # Create the new version of the line, with the text inserted into it.
+      self.myfile[self.linenum] = starttext + str + endtext
+             
+   # Search for come text
+   # Limitation - this can't search for text which spans lines.
+   def find(self, text):
+      for line in self.myfile:
+         if text in line:
+            print "found"
+            break
+         else:
+            print "not found"
+            break
+          
+   # Repeat a command a given number of times. 
+   def repeat(self, cmd, *args): 
+      pass           
+          
+   def display(self):
+      print self.myfile
+          
+          
+# Test the code
+a = edit()
+a.open('test.txt')
+print a.tell()
+a.display()  
+print a.get(4) 
+a.move(7)    
+print a.tell()             
+a.find("lamb")             
+a.insert("moose") 
+a.move(5) 
+a.delete(8)  
+a.lmove(4) 
+a.move(3)
+a.insert("The quick brown fox")
+print a.tell() 
+a.save() 
+a.display() 
+a.close() 
+ 

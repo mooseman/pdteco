@@ -2,7 +2,12 @@
  **** README -  pdteco   **** '' 
 
 This is a public-domain Python implementation of the core functionality 
-of the wonderful old TECO editor.  
+of the wonderful old TECO editor.  It is possible that a C version may also 
+be done.  
+
+The aim is to implement the core functionality of TECO. This includes 
+moving within lines and around a file, and searching for, inserting, replacing 
+and deleting text.  
 
 TECO (in its various implementations) was (and is) an **extremely powerful** 
 tool for the editing of text.  It was, in fact, the predecessor of the famous Emacs
