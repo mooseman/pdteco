@@ -4,7 +4,7 @@
 # Try a few things with creating tokens which know the 
 # kind of token that should follow them. 
 
-import string   
+import string, itertools   
 
 class token(object): 
    def __init__(self): 
@@ -35,6 +35,10 @@ a.display()
 
 
 #  Create a parser with two modes - character and word. 
+# Note - we could add a statement checker to this. It would look at the 
+# stmttype of tokens to determine which kind of statement they belong in.
+# When a statement is complete, it can flag that and act accordingly. 
+# Also - attach actions to statements. 
 class parser(object): 
    def __init__(self): 
       self.toklist = [] 
@@ -51,7 +55,7 @@ class parser(object):
       if self.mode == 'char': 
          for ch in stuff: 
             self.toklist.append(ch)          
-      else: 
+      elif self.mode == 'word': 
          for tok in stuff.split(sep): 
             self.toklist.append(tok) 
              

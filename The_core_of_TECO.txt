@@ -1,0 +1,40 @@
+
+ ***** The core of TECO *****  
+
+NOTE - A number of common TECO commands follow this general pattern -  
+ nX string ESC  
+
+ We need to implement the following types of commands - 
+a) File commands - 
+       - ERfname$  - open file "fname" for read access 
+       - EBfname$  - open file for read/write with backup 
+       - EWfname$  - open file for writing.   
+       - EX$$ - close output file and exit.   
+
+b) The eight basic Teco functions 
+       - DOT (current value of POINT)
+       - nC - Move POINT \T{n} characters forward. 
+       - nD - Delete \T{n} characters. 
+       - Istring\A{ESC} - Insert text. 
+       - nJ - Move POINT to absolute position \T{n} 
+       - m,nK - Kill a range of characters. 
+       - Sstring\A{ESC} - Search for a string. 
+       - Z - Current buffer size.  
+c) Line-oriented commands - 
+       - nL - Move to beginning of $\T{n}^{th}$ line from \POINT{}. 
+       - nK - Kill from point  to beginning of $\T{n}^{th}$ following
+              line. 
+d) Looping -  
+       - n< - Begin \T{n}-iteration loop. 
+       - >  - End loop. 
+       - n; - Exit loop if $\T{n} \geq 0$.  
+e) Conditionals -  
+       - n"x - ( To be completed..... )      
+f) "Q-registers", to store results. 
+g) Conversion functions, from numbers to strings and vice versa.  
+    
+Helper functions 
+   Move n characters left or right from current position 
+   Use f.seek(n, 1) where 1 denotes "measure from current position" 
+
+ 

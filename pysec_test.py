@@ -8,7 +8,7 @@ from pysec import *
 
 sql_grammar = [] 
 
-select_stmt = group("SELECT" & "*" & "from" & "mytable" & ";") 
+select_stmt = group("SELECT" + "*" + "from" + "mytable" + ";") 
 
 sql_grammar.extend(select_stmt) 
 

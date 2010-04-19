@@ -1,12 +1,6 @@
 
  **** README -  pdteco   **** '' 
 
-#  Acknowledgement - Very many thanks to the developers of the 
-#  public-domain "eel" implementation of TECO, available here - 
-#  http://www.ibiblio.org/pub/academic/computer-science/history/pdp-11/teco/eel/
-#  This Python implementation would have been much more difficult if that 
-#  version had not been available. 
-
 This is a public-domain Python implementation of the core functionality 
 of the wonderful old TECO editor.  
 
