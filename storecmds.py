@@ -33,6 +33,15 @@ def fillcmddict():
                     "L": "move",    
                     "I": "insert" , 
                     "S": "search" }) 
+                    
+# Print the command dict 
+
+fillcmddict() 
+
+for x in cmddict.items(): 
+   print x 
+   
+                        
     
 
 
